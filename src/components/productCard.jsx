@@ -1,4 +1,3 @@
-import "./productCard.css"
 
 export default function ProductCard(props){
     

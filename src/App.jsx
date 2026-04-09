@@ -1,15 +1,26 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
+import LoginPage from './pages/login'
+import SignupPage from './pages/signup'
+import HomePage from './pages/home'
 import Header from './components/header'
-import ProductCard from './components/productCard'
+import AdminPage from './pages/adminPage'
 
 function App() {
   
   return (
-    <>
-      <Header/>
-      <ProductCard name="Apple Laptop" description="lorem cdsc dsd" price="1000/=" picture="https://picsum.photos/id/2/200/300"/>
-      <ProductCard name="Gaming Laptop" description="lorem cdsc dsd" price="2000/=" picture="https://picsum.photos/id/3/200/300"/>
-    </>
+    <div>
+      <BrowserRouter>
+      {/* <Header/> */}
+        <Routes path="/">
+          <Route path="/" element={<HomePage/>} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/signup" element={<SignupPage/>} />
+          <Route path="/adminPage*" element={<AdminPage/>} />
+          <Route path="/*" element={<h1>404 not found</h1>}/>
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 
