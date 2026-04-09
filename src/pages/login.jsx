@@ -1,10 +1,15 @@
 export default function LoginPage(){
     return(
-        <div className="w-full h-screen bg-green-900 flex flex-col justify-center items-center">
-            <h1 className="text-4xl text-white mb-8">Login</h1>
-            <input type="text" placeholder="Username" className="mb-4 p-2 rounded"/>
-            <input type="password" placeholder="Password" className="mb-4 p-2 rounded"/>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
+        <div className="w-full h-screen bg-[url('/login.jpg')] bg-center bg-cover flex justify-center items-center">
+            <div className="w-[50%] h-full">
+
+            </div>
+            <div className="w-[50%] h-full flex justify-center items-center">
+                <div className="w-[500px] h-[600px] backdrop-blur-xs rounded[20px]">
+
+                </div>
+
+            </div>
         </div>
     )
 }
