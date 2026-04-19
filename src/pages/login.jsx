@@ -1,22 +1,25 @@
 import axios from "axios";
 import { useState } from "react"
+import toast from "react-hot-toast";
+
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     async function handleLogin() {
-        console.log(email);
-        console.log(password);
 
         try {
-            const response = await axios.post("http://localhost:3000/users/login", {
+            const response = await axios.post("http://localhost:3000/api/users/login", {
                 email: email,
                 password: password
             })
-            console.log(response)
+            //alert("Login Successful");
+            toast.success("Login Successful")
+            console.log(response.data);
         } catch (e) {
-            console.log("error");
+            //alert(e.response.data.message);
+            toast.error(e.response.data.message);
         }
 
     }

@@ -6,12 +6,14 @@ import HomePage from './pages/home'
 import Header from './components/header'
 import AdminPage from './pages/adminPage'
 import TestPage from './pages/testPage'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   
   return (
     <div>
       <BrowserRouter>
+      <Toaster position='top-right'/>
       {/* <Header/> */}
         <Routes path="/">
           <Route path="/" element={<HomePage/>} />
