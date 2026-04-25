@@ -29,3 +29,5 @@ function App() {
 }
 
 export default App
+
+//https://tgjwaeillwyegfbedncz.supabase.co/rest/v1/
