@@ -1,26 +1,20 @@
 import { createClient } from "@supabase/supabase-js";
 import { useState } from "react"
+import meadiaUpload from "../utils/meadiaUpload";
 
 export default function TestPage(){
 
     const [image, setImage] = useState(null);
 
-    const url = "https://tgjwaeillwyegfbedncz.supabase.co"
-    const key = "sb_publishable_JVa5CScXg6670BEjzYK4zw_yzL_uM8-"
-
-    const supabase = createClient(url, key)
 
     function fileUpload(){
-        supabase.storage.from("images").upload(image.name, image, {
-            upsert:false,
-            casheControl:"3600"
-        }).then(()=>{
-
-            const publicUrl = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl
-            console.log(publicUrl);
-
-        }).catch((e)=>{
-            console.log(e);
+        meadiaUpload(image).then(
+            (res)=>{
+                console.log(res)
+            }
+        ).catch(
+            (res)=>{
+                console.log(res)
         })
     }
 
