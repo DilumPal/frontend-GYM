@@ -31,3 +31,4 @@ function App() {
 export default App
 
 //https://tgjwaeillwyegfbedncz.supabase.co/rest/v1/
+//sb_publishable_JVa5CScXg6670BEjzYK4zw_yzL_uM8-
