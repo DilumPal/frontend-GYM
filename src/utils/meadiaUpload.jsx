@@ -13,7 +13,7 @@ export default function meadiaUpload(file) {
                 return
             }
 
-            const timestamp = new Data().getTime()
+            const timestamp = new Date().getTime()
             const newName = timestamp + file.name
 
             supabase.storage.from("images").upload(newName, file, {
