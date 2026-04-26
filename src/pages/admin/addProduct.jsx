@@ -1,6 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import meadiaUpload from "../../utils/meadiaUpload";
 
@@ -53,6 +53,7 @@ export default function AddProductPage() {
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState([]);
+    const navigate = useNavigate()
 
     async function AddProduct(e) {
 
@@ -87,7 +88,7 @@ export default function AddProductPage() {
                 images: imageUrls,
                 labaledPrice: labaledPrice,
                 price: price,
-                stock: stock
+                stock: stock,
             }
 
             axios.post(import.meta.env.VITE_BACKEND_URL + "/api/products", product, {
@@ -96,6 +97,7 @@ export default function AddProductPage() {
                 }
             }).then(()=> {
                     toast.success("Product added successfully")
+                    navigate("/adminPage/products")
             }).catch((e)=>{
                 toast.error(e.response.data.message)
             })
