@@ -2,11 +2,13 @@ import { useState } from "react"
 import { sampleProducts } from "../../assets/sampleData"
 import { useEffect } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { FaEdit, FaTrash } from "react-icons/fa"
 
 export default function AdminProductPage() {
 
     const [products, setProducts] = useState(sampleProducts);
+    const navigate = useNavigate();
 
     useEffect(
         () => {
@@ -20,7 +22,7 @@ export default function AdminProductPage() {
 
     return (
 
-        <div className="w-full h-full bg-red-400 max-h-full overflow-y-scroll">
+        <div className="w-full h-full max-h-full overflow-y-scroll">
             <Link to="/adminPage/add-product" className="absolute text-5xl cursor-pointer bottom-5 right-5 bg-green-500 text-white font-bold py-1 px-4 rounded text-center justify-center items-center">+</Link>
             <table className="w-full text-center">
                 <thead>
@@ -31,6 +33,7 @@ export default function AdminProductPage() {
                         <th>Labelled Price</th>
                         <th>Price</th>
                         <th>Stock</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +48,14 @@ export default function AdminProductPage() {
                                         <td>{item.labaledPrice.toLocaleString()}</td>
                                         <td>{item.price.toLocaleString()}</td>
                                         <td>{item.stock}</td>
+                                        <td>
+                                            <div className="flex justify-center items-center">
+                                                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer"/>
+                                                <FaEdit onClick={()=>{
+
+                                                }} className="text-[20px] text-blue-500 mx-2 cursor-pointer"/>
+                                            </div>
+                                        </td>
                                     </tr>
                                 )
                             }
