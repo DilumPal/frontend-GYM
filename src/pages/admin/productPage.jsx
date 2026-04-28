@@ -4,21 +4,44 @@ import { useEffect } from "react"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import { FaEdit, FaTrash } from "react-icons/fa"
+import toast from "react-hot-toast";
 
 export default function AdminProductPage() {
 
     const [products, setProducts] = useState(sampleProducts);
+    const [isloading, setIsloading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(
         () => {
-            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products").then(
-                (res) => {
-                    console.log(res.data);
-                    setProducts(res.data);
-                }
-            );
-        }, []);
+            if (isloading == true) {
+                axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products").then(
+                    (res) => {
+                        console.log(res.data);
+                        setProducts(res.data);
+                        setIsloading(false);
+                    }
+                );
+            }
+        }, [isloading]);
+
+    function deleteProduct(productID){
+        const token = localStorage.getItem("token");
+        if(token == null){
+            toast.error("Please login first")
+            return
+        }
+        axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/products/" +productID , {
+            headers : {
+                "Authorization" : "Bearer "+token
+            }
+        }).then(()=>{
+            toast.success("Product deleted successfully")
+            setProducts(products.filter(item => item.productID !== productID));
+        }).catch((e)=>{
+            toast.error(e.response.data.message)
+        })
+    }
 
     return (
 
@@ -50,14 +73,14 @@ export default function AdminProductPage() {
                                         <td>{item.stock}</td>
                                         <td>
                                             <div className="flex justify-center items-center">
-                                                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" onClick={()=>{
+                                                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" onClick={() => {
                                                     deleteProduct(item.productID)
-                                                }}/>
-                                                <FaEdit onClick={()=>{
+                                                }} />
+                                                <FaEdit onClick={() => {
                                                     navigate("/adminPage/edit-product", {
                                                         state: item
                                                     })
-                                                }} className="text-[20px] text-blue-500 mx-2 cursor-pointer"/>
+                                                }} className="text-[20px] text-blue-500 mx-2 cursor-pointer" />
                                             </div>
                                         </td>
                                     </tr>

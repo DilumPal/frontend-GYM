@@ -68,23 +68,6 @@ export default function EditProductPage() {
         }
     }
 
-    function deleteProduct(productID){
-        const token = localStorage.getItem("token");
-        if(token == null){
-            toast.err("Please login first")
-            return
-        }
-        axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/products" +productID , {
-            headers : {
-                "Authorization" : "Bearer "+token
-            }
-        }).then(()=>{
-            toast.success("Product deleted successfully")
-        }).catch(()=>{
-            toast.error(e.response.data.message)
-        })
-    }
-
     return (
         <div className="w-full h-full flex flex-col justify-center item-center">
             <h1 className="text-3xl font-bold mb-4">Edit Product</h1>
