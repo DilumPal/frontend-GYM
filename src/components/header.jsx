@@ -3,11 +3,8 @@ import UserData from "./userData";
 
 export default function Header(){
     return(
-        <div className="Header bg-red-300" >
-            <h1 className="font-bold text-blue-700">GYMNASIUM</h1>
-            <Link href="/">Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+        <div className="w-full h-[80px] shadow-2xl" >
+            <img src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover absolute top-0 left-0 m-2" />
         </div>
     )
 }
