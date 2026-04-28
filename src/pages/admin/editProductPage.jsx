@@ -1,18 +1,19 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import meadiaUpload from "../../utils/meadiaUpload";
 
 export default function EditProductPage() {
 
-    const [productID, setProductID] = useState("");
-    const [name, setName] = useState("");
-    const [altNames, setAltNames] = useState("");
-    const [description, setDescription] = useState("");
-    const [labaledPrice, setLabaledPrice] = useState(0);
-    const [price, setPrice] = useState(0);
-    const [stock, setStock] = useState(0);
+    const location = useLocation()
+    const [productID, setProductID] = useState(location.state.productID);
+    const [name, setName] = useState(location.state.name);
+    const [altNames, setAltNames] = useState(location.state.altNames.join(","));
+    const [description, setDescription] = useState(location.state.description);
+    const [labaledPrice, setLabaledPrice] = useState(location.state.labaledPrice);
+    const [price, setPrice] = useState(location.state.price);
+    const [stock, setStock] = useState(location.state.stock);
     const [images, setImages] = useState([]);
     const navigate = useNavigate()
 
@@ -24,10 +25,7 @@ export default function EditProductPage() {
             return
         }
 
-        if (images.length <= 0) {
-            toast.error("Please select at least one image")
-            return
-        }
+        let imageUrls = location.state.images;
 
         const promiseArray = []
 
@@ -36,7 +34,9 @@ export default function EditProductPage() {
         }
 
         try {
-            const imageUrls = await Promise.all(promiseArray)
+            if(imageUrls.length > 0){
+                imageUrls = await Promise.all(promiseArray)
+            }
             console.log(imageUrls)
 
             const altNamesArray = altNames.split(",")
@@ -52,12 +52,12 @@ export default function EditProductPage() {
                 stock: stock,
             }
 
-            axios.post(import.meta.env.VITE_BACKEND_URL + "/api/products", product, {
+            axios.put(import.meta.env.VITE_BACKEND_URL + "/api/products/"+productID, product, {
                 headers: {
                     "Authorization": "Bearer " + token
                 }
             }).then(() => {
-                toast.success("Product added successfully")
+                toast.success("Product updated successfully")
                 navigate("/adminPage/products")
             }).catch((e) => {
                 toast.error(e.response.data.message)
@@ -68,13 +68,32 @@ export default function EditProductPage() {
         }
     }
 
+    function deleteProduct(productID){
+        const token = localStorage.getItem("token");
+        if(token == null){
+            toast.err("Please login first")
+            return
+        }
+        axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/products" +productID , {
+            headers : {
+                "Authorization" : "Bearer "+token
+            }
+        }).then(()=>{
+            toast.success("Product deleted successfully")
+        }).catch(()=>{
+            toast.error(e.response.data.message)
+        })
+    }
+
     return (
         <div className="w-full h-full flex flex-col justify-center item-center">
             <h1 className="text-3xl font-bold mb-4">Edit Product</h1>
             <input
                 type="text"
+                disabled
                 placeholder="Product ID"
                 className="input input-bordered w-full max-w-xs"
+                value={productID}
                 onChange={(e) => {
                     setProductID(e.target.value)
                 }}
@@ -83,6 +102,7 @@ export default function EditProductPage() {
                 type="text"
                 placeholder="Name"
                 className="input input-bordered w-full max-w-xs"
+                value={name}
                 onChange={(e) => {
                     setName(e.target.value)
                 }}
@@ -91,6 +111,7 @@ export default function EditProductPage() {
                 type="text"
                 placeholder="Alt Names (comma separated)"
                 className="input input-bordered w-full max-w-xs"
+                value={altNames}
                 onChange={(e) => {
                     setAltNames(e.target.value)
                 }}
@@ -99,6 +120,7 @@ export default function EditProductPage() {
                 type="text"
                 placeholder="Description"
                 className="textarea textarea-bordered w-full max-w-xs"
+                value={description}
                 onChange={(e) => {
                     setDescription(e.target.value)
                 }}
@@ -115,6 +137,7 @@ export default function EditProductPage() {
                 type="number"
                 placeholder="Labaled Price"
                 className="input input-bordered w-full max-w-xs"
+                value={labaledPrice}
                 onChange={(e) => {
                     setLabaledPrice(e.target.value)
                 }}
@@ -123,6 +146,7 @@ export default function EditProductPage() {
                 type="number"
                 placeholder="Price"
                 className="input input-bordered w-full max-w-xs"
+                value={price}
                 onChange={(e) => {
                     setPrice(e.target.value)
                 }}
@@ -131,6 +155,7 @@ export default function EditProductPage() {
                 type="number"
                 placeholder="Stock"
                 className="input input-bordered w-full max-w-xs"
+                value={stock}
                 onChange={(e) => {
                     setStock(e.target.value)
                 }}

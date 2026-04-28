@@ -50,9 +50,13 @@ export default function AdminProductPage() {
                                         <td>{item.stock}</td>
                                         <td>
                                             <div className="flex justify-center items-center">
-                                                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer"/>
+                                                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" onClick={()=>{
+                                                    deleteProduct(item.productID)
+                                                }}/>
                                                 <FaEdit onClick={()=>{
-
+                                                    navigate("/adminPage/edit-product", {
+                                                        state: item
+                                                    })
                                                 }} className="text-[20px] text-blue-500 mx-2 cursor-pointer"/>
                                             </div>
                                         </td>
