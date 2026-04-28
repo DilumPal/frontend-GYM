@@ -25,20 +25,20 @@ export default function AdminProductPage() {
             }
         }, [isloading]);
 
-    function deleteProduct(productID){
+    function deleteProduct(productID) {
         const token = localStorage.getItem("token");
-        if(token == null){
+        if (token == null) {
             toast.error("Please login first")
             return
         }
-        axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/products/" +productID , {
-            headers : {
-                "Authorization" : "Bearer "+token
+        axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/products/" + productID, {
+            headers: {
+                "Authorization": "Bearer " + token
             }
-        }).then(()=>{
+        }).then(() => {
             toast.success("Product deleted successfully")
             setProducts(products.filter(item => item.productID !== productID));
-        }).catch((e)=>{
+        }).catch((e) => {
             toast.error(e.response.data.message)
         })
     }
@@ -47,49 +47,54 @@ export default function AdminProductPage() {
 
         <div className="w-full h-full max-h-full overflow-y-scroll">
             <Link to="/adminPage/add-product" className="absolute text-5xl cursor-pointer bottom-5 right-5 bg-green-500 text-white font-bold py-1 px-4 rounded text-center justify-center items-center">+</Link>
-            <table className="w-full text-center">
-                <thead>
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Labelled Price</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        products.map(
-                            (item, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{item.productID}</td>
-                                        <td>{item.name}</td>
-                                        <td><img src={item.images[0]} className="w-[50px] h-[50px]" /></td>
-                                        <td>{item.labaledPrice.toLocaleString()}</td>
-                                        <td>{item.price.toLocaleString()}</td>
-                                        <td>{item.stock}</td>
-                                        <td>
-                                            <div className="flex justify-center items-center">
-                                                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" onClick={() => {
-                                                    deleteProduct(item.productID)
-                                                }} />
-                                                <FaEdit onClick={() => {
-                                                    navigate("/adminPage/edit-product", {
-                                                        state: item
-                                                    })
-                                                }} className="text-[20px] text-blue-500 mx-2 cursor-pointer" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        )
-                    }
-                </tbody>
-            </table>
+            {isloading ?
+                <div className="w-full h-full flex justify-center items-center">
+                    <div className="w-[70px] h-[70px] border-[5px] border-gray-300 border-t-blue-900 rounded-full animate-spin"></div>
+                </div> :
+                <table className="w-full text-center">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Labelled Price</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            products.map(
+                                (item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{item.productID}</td>
+                                            <td>{item.name}</td>
+                                            <td><img src={item.images[0]} className="w-[50px] h-[50px]" /></td>
+                                            <td>{item.labaledPrice.toLocaleString()}</td>
+                                            <td>{item.price.toLocaleString()}</td>
+                                            <td>{item.stock}</td>
+                                            <td>
+                                                <div className="flex justify-center items-center">
+                                                    <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" onClick={() => {
+                                                        deleteProduct(item.productID)
+                                                    }} />
+                                                    <FaEdit onClick={() => {
+                                                        navigate("/adminPage/edit-product", {
+                                                            state: item
+                                                        })
+                                                    }} className="text-[20px] text-blue-500 mx-2 cursor-pointer" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            )
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     )
 }
