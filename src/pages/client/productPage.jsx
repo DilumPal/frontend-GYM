@@ -23,7 +23,7 @@ export default function ProductPage() {
             {
                 products.map((product) => {
                     return (
-                        <ProductCard key={product.productId} product={product}/>
+                        <ProductCard key={product.productID} product={product}/>
                     )
                 })
             }
