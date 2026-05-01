@@ -28,7 +28,7 @@ export function addToCart(product, qty){
 
     if(index == -1){
         cart[cart.length] = {
-            productId : product.productID,
+            productID : product.productID,
             name : product.name,
             image : product.images[0],
             price : product.price,

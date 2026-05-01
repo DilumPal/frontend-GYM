@@ -14,7 +14,7 @@ export default function Cart() {
                             <div key={item.productID} className="w-[600px] h-[100px] rounded-tl-3xl my-4 rounded-bl-3xl bg-primary shadow-2xl flex flex-row relative justify-center items-center">
                                 <img src={item.image} className="w-[100px] h-[100px] object-cover rounded-3xl" />
                                 <div className="w-[250px] h-full flex flex-col justify-center items-center pl-4">
-                                    <h1 className="text-2xl text-secondary font-semibold">{item.name}</h1>
+                                    <h1 className="text-xl text-secondary font-semibold">{item.name}</h1>
                                     <h1 className="text-md text-gray-400 font-semibold">{item.productID}</h1>
                                     {
                                         item.labelledPrice > item.price ?
