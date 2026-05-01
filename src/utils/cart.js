@@ -23,7 +23,7 @@ export function addToCart(product, qty){
     let cart = getCart();
 
     let index = cart.findIndex((item)=>{
-        return item.productID = product.productID
+        return item.productID === product.productID
     })
 
     if(index == -1){
