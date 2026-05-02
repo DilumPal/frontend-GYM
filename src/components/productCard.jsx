@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product }) {
+
     return (
         <Link to={"/overview/" + product.productID} className="w-[300px] h-[420px] bg-white shadow-lg rounded-2xl m-3 flex flex-col overflow-hidden hover:shadow-xl transition duration-300">
             

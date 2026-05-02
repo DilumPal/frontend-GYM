@@ -1,30 +1,54 @@
 import { useState } from "react"
-import { addToCart, getCart, getTotal, removeFromCart } from "../../utils/cart"
 import { BiPlus, BiMinus, BiTrash } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { removeFromCart } from "../../utils/cart";
 
-export default function Cart() {
-    const [cart, setCart] = useState(getCart())
+export default function CheckoutPage() {
+    const location = useLocation()
+    console.log(location.state.cart)
+
+    const [cart, setCart] = useState(location.state?.cart || []);
+
+    function getTotal(){
+        let total = 0;
+        cart.forEach((item) => {
+            total += item.price * item.qty
+        });
+        return total
+    }
+
+    function removeFromCart(index){
+        const newCart = cart.filter((item,i)=>i != index)
+        setCart(newCart)
+    }
+
+    function changeQty(index, qty){
+        const newQty = cart[index].qty + qty
+        if(newQty <= 0){
+            removeFromCart(index)
+            return
+        }else{
+            const newCart = [...cart]
+            cart[index].qty = newQty
+            setCart(newCart)
+        }
+    }
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
             <div className="w-[300px] h-[120px] bg-primary rounded-2xl shadow-2xl absolute top-1 right-1 flex flex-col justify-center items-center">
                 <p className="text-2xl py-4 text-secondary font-bold">Total:
                     <span className="text-accent font-bold mx-2">
-                        {getTotal().toFixed(2)}
+                        Rs {getTotal().toFixed(2)}
                     </span>
                 </p>
-                <Link to="/checkout" state={
-                    {
-                        cart: cart
-                    }
-                } className="text-white bg-accent px-4 py-1 rounded-lg font-bold hover:bg-accent/80 transition-all duration-300">
-                    Checkout
-                </Link>
+                <button className="text-white bg-accent px-4 py-1 rounded-lg font-bold hover:bg-accent/80 transition-all duration-300">
+                    Place Order
+                </button>
             </div>
             {
                 cart.map(
-                    (item) => {
+                    (item , index) => {
                         return (
                             <div key={item.productID} className="w-[600px] h-[100px] rounded-tl-3xl my-4 rounded-bl-3xl bg-primary shadow-2xl flex flex-row relative justify-center items-center">
                                 <img src={item.image} className="w-[100px] h-[100px] object-cover rounded-3xl" />
@@ -43,21 +67,18 @@ export default function Cart() {
                                 </div>
                                 <div className="flex flex-row items-center justify-center w-[100px] h-full">
                                     <button aria-label="Decrease quantity"className="flex items-center justify-center w-[30px] h-[30px] mx-4 text-3xl text-white transition-all duration-300 bg-green-500 cursor-pointer rounded-xl hover:bg-green-600/80 active:scale-90" onClick={()=>{
-                                        addToCart(item,-1)
-                                        setCart(getCart())
+                                        changeQty(index, -1)
                                     }}><BiMinus /></button>
                                     <span className="mx text-2xl font-semibold text-secondary">{item.qty}</span>
                                     <button aria-label="Increase quantity"className="flex items-center justify-center w-[30px] h-[30px] mx-4 text-3xl text-white transition-all duration-300 bg-green-500 cursor-pointer rounded-xl hover:bg-green-600/80 active:scale-90" onClick={()=>{
-                                        addToCart(item,1)
-                                        setCart(getCart())
+                                        changeQty(index, 1)
                                     }}><BiPlus /></button>
                                 </div>
                                 <div className="w-[200px] h-full flex flex-col justify-center items-end pr-4">
                                     <h1 className="text-2xl text-secondary font-semibold">Rs {(item.price*item.qty).toFixed(2)}</h1>
                                 </div>
                                 <button className="absolute cursor-pointer text-red-500 rounded-full p-2 right-[-40px] transition-all duration-300 hover:bg-red-600/80 active:scale-90 hover:text-white" onClick={()=>{
-                                    removeFromCart(item.productID)
-                                    setCart(getCart())
+                                    removeFromCart(index)
                                 }}>
                                     <BiTrash/>
                                 </button>
