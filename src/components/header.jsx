@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import UserData from "./userData";
+import { IoCart } from "react-icons/io5";
 
 export default function Header(){
     return(
@@ -11,8 +12,10 @@ export default function Header(){
                 <Link to="/about" className="text-[20px] font-bold mx-2">About</Link>
                 <Link to="/contact" className="text-[20px] font-bold mx-2">Contact</Link>
             </div>
-            <div className="w-[80px] bg-green-300">
-                
+            <div className="w-[80px] bg-green-300 flex justify-center items-center">
+                <Link to="/cart" className="text-[20px] font-bold mx-2">
+                    <IoCart/>
+                </Link>
             </div>
         </header>
     )
