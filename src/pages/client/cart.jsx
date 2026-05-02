@@ -1,12 +1,23 @@
 import { useState } from "react"
-import { addToCart, getCart, removeFromCart } from "../../utils/cart"
+import { addToCart, getCart, getTotal, removeFromCart } from "../../utils/cart"
 import { BiPlus, BiMinus, BiTrash } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
     const [cart, setCart] = useState(getCart())
 
     return (
-        <div className="w-full h-full flex flex-col items-center pt-4">
+        <div className="w-full h-full flex flex-col items-center pt-4 relative">
+            <div className="w-[300px] h-[120px] bg-primary rounded-2xl shadow-2xl absolute top-1 right-1 flex flex-col justify-center items-center">
+                <p className="text-2xl py-4 text-secondary font-bold">Total:
+                    <span className="text-accent font-bold mx-2">
+                        {getTotal().toFixed(2)}
+                    </span>
+                </p>
+                <Link to="/checkout" className="text-white bg-accent px-4 py-1 rounded-lg font-bold hover:bg-accent/80 transition-all duration-300">
+                    Checkout
+                </Link>
+            </div>
             {
                 cart.map(
                     (item) => {
