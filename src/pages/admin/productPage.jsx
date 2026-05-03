@@ -72,7 +72,7 @@ export default function AdminProductPage() {
                                             <td>{item.productID}</td>
                                             <td>{item.name}</td>
                                             <td><img src={item.images[0]} className="w-[50px] h-[50px]" /></td>
-                                            <td>{item.labaledPrice.toLocaleString()}</td>
+                                            <td>{item.labelledPrice.toLocaleString()}</td>
                                             <td>{item.price.toLocaleString()}</td>
                                             <td>{item.stock}</td>
                                             <td>
