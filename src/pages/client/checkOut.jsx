@@ -10,6 +10,8 @@ export default function CheckoutPage() {
     console.log(location.state.cart)
 
     const [cart, setCart] = useState(location.state?.cart || []);
+    const [phoneNumber, setPhoneNumber] = useState("")
+    const [address, setAddress] = useState("")
 
     function getTotal() {
         let total = 0;
@@ -45,8 +47,8 @@ export default function CheckoutPage() {
 
         const orderInformation = {
             products : [],
-            phone : '+94772185126',
-            address : "123, main street, colombo"
+            phone : phoneNumber,
+            address : address
         }
 
         for (let i = 0; i < cart.length; i++) {
@@ -74,12 +76,26 @@ export default function CheckoutPage() {
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[300px] h-[120px] bg-primary rounded-2xl shadow-2xl absolute top-1 right-1 flex flex-col justify-center items-center">
+            <div className="w-[300px] h-[200px] bg-primary rounded-2xl shadow-2xl absolute top-1 right-1 flex flex-col justify-center items-center">
                 <p className="text-2xl py-4 text-secondary font-bold">Total:
                     <span className="text-accent font-bold mx-2">
                         Rs {getTotal().toFixed(2)}
                     </span>
                 </p>
+                <input 
+                    type="text"
+                    placeholder="phone Number"
+                    className="w-full h-[40px] px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+                    value={phoneNumber}
+                    onChange={(e)=>setPhoneNumber(e.target.value)} 
+                />
+                <input 
+                    type="text"
+                    placeholder="Address"
+                    className="w-full h-[40px] px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+                    value={address}
+                    onChange={(e)=>setAddress(e.target.value)} 
+                />
                 <button className="text-white bg-accent px-4 py-1 rounded-lg font-bold cursor-pointer hover:bg-accent/80 transition-all duration-300" onClick={placeOrder}>
                     Place Order
                 </button>
