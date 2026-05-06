@@ -53,7 +53,7 @@ export default function CheckoutPage() {
 
         for (let i = 0; i < cart.length; i++) {
             const item = {
-                productID: cart[i].productID,
+                productId: cart[i].productID,
                 qty: cart[i].qty
             }
             orderInformation.products[i] = item
@@ -62,7 +62,7 @@ export default function CheckoutPage() {
         try {
             const res = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/orders", orderInformation, {
                 headers: {
-                    Authorization: "Bearer" + token
+                    Authorization: "Bearer " + token
                 }
             })
             toast.success("Order placed successfully")

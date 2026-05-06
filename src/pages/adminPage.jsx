@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AdminProductPage from "./admin/productPage";
 import AddProductPage from "./admin/addProduct";
 import EditProductPage from "./admin/editProductPage";
+import AdminOrdersPage from "./admin/adminOrdersPage";
 
 export default function AdminPage(){
     const location = useLocation();
@@ -27,7 +28,7 @@ export default function AdminPage(){
             <div className="h-full w-[calc(100%-300px)] bg-secondary border-primary border-4 rounded-xl flex flex-col overflow-hidden">
                 <Routes path="/*">
                     <Route path="/products" element={<AdminProductPage/>} />
-                    <Route path="/orders" element={<h1>Orders</h1>} />
+                    <Route path="/orders" element={<AdminOrdersPage/>} />
                     <Route path="/users" element={<h1>Users</h1>} />
                     <Route path="/add-product" element={<AddProductPage/>}/>
                     <Route path="/edit-product" element={<EditProductPage/>}/>
