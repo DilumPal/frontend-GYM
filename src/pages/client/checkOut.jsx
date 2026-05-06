@@ -76,7 +76,7 @@ export default function CheckoutPage() {
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[300px] h-[200px] bg-primary rounded-2xl shadow-2xl absolute top-1 right-1 flex flex-col justify-center items-center">
+            <div className="w-[300px] h-[200px] bg-primary rounded-2xl shadow-2xl absolute top-1 right-1 flex flex-col justify-center items-center p-1 gap-1">
                 <p className="text-2xl py-4 text-secondary font-bold">Total:
                     <span className="text-accent font-bold mx-2">
                         Rs {getTotal().toFixed(2)}
@@ -85,14 +85,14 @@ export default function CheckoutPage() {
                 <input 
                     type="text"
                     placeholder="phone Number"
-                    className="w-full h-[40px] px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full h-[40px] px-2 rounded-lg text-secondary border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
                     value={phoneNumber}
                     onChange={(e)=>setPhoneNumber(e.target.value)} 
                 />
                 <input 
                     type="text"
                     placeholder="Address"
-                    className="w-full h-[40px] px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full h-[40px] px-2 rounded-lg text-secondary border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
                     value={address}
                     onChange={(e)=>setAddress(e.target.value)} 
                 />
