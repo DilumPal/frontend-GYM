@@ -191,6 +191,47 @@ export default function AdminOrdersPage() {
                                                     >
                                                         {activeOrder.status}
                                                     </span>
+                                                    <select
+                                                        onChange={async (e) => {
+                                                            const updateValue = e.target.value;
+                                                            try {
+                                                                setIsLoading(true); // Start loading
+                                                                const token = localStorage.getItem("token");
+
+                                                                await axios.put(
+                                                                    import.meta.env.VITE_BACKEND_URL + "/api/orders/" + activeOrder.orderId + "/" + updateValue,
+                                                                    {},
+                                                                    {
+                                                                        headers: { Authorization: "Bearer " + token },
+                                                                    }
+                                                                );
+
+                                                                // 1. Update the Modal View
+                                                                const updatedOrder = { ...activeOrder, status: updateValue };
+                                                                setActiveOrder(updatedOrder);
+
+                                                                // 2. Update the background list so the table updates immediately
+                                                                setOrders((prevOrders) =>
+                                                                    prevOrders.map((ord) =>
+                                                                        ord.orderId === activeOrder.orderId ? { ...ord, status: updateValue } : ord
+                                                                    )
+                                                                );
+
+                                                                toast.success("Order status updated!");
+                                                            } catch (e) {
+                                                                toast.error("Error updating order status");
+                                                                console.error(e);
+                                                            } finally {
+                                                                setIsLoading(false); // STOP loading regardless of success or failure
+                                                            }
+                                                        }}
+                                                    >
+                                                        <option value="default" disabled>Change Status</option>
+                                                        <option value="pending">pending</option>
+                                                        <option value="completed">completed</option>
+                                                        <option value="canceled">canceled</option>
+                                                        <option value="returned">returned</option>
+                                                    </select>
                                                 </div>
 
                                                 <div className="flex justify-between items-center">
