@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi"
 import { useState } from "react";
 
 export default function Header(){
-    const [sideDrawerOpened, setSideDrawerOpened] = useState(true)
+    const [sideDrawerOpened, setSideDrawerOpened] = useState(false)
     const navigate = useNavigate()
 
     return(
@@ -38,7 +38,11 @@ export default function Header(){
                             }} src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer"/>
                         </div>
                         <div className="w-full h-[calc(100%-80px)] flex flex-col items-center gap-2">
-
+                            <a href="/" className="text-[20px] font-bold mx-2 my-4">Home</a>
+                            <a href="/products" className="text-[20px] font-bold mx-2 my-4">Products</a>
+                            <a href="/about" className="text-[20px] font-bold mx-2 my-4">About</a>
+                            <a href="/contact" className="text-[20px] font-bold mx-2 my-4">Contact</a>
+                            <a href="/cart" className="text-[20px] font-bold mx-2 my-4"><IoCart/></a>
                         </div>
                     </div>
                 </div>
