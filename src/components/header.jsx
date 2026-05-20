@@ -22,7 +22,7 @@ export default function Header(){
                 <Link to="/search" className="text-[20px] font-bold mx-2">Search</Link>
             </div>
             <div className="w-[80px] bg-green-300 hidden md:flex justify-center items-center">
-                <Link to="/cart" className="text-[20px] font-bold mx-2">
+                <Link to="/cart" className="text-[30px] font-bold mx-2">
                     <IoCart/>
                 </Link>
             </div>
