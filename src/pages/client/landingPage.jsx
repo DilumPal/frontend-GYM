@@ -40,7 +40,7 @@ export default function LandingPage() {
       {/* 2. HERO SECTION */}
       <section className="relative w-full h-[70vh] flex items-center justify-center bg-black">
         <img
-          src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1600&auto=format&fit=crop&q=80"
+          src="/hero.jpeg"
           alt="Athletes training"
           className="absolute inset-0 w-full h-full object-cover opacity-60"
         />
