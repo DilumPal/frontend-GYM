@@ -46,21 +46,21 @@ export default function RegisterPage() {
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
                         placeholder="First Name"
-                        className="w-[300px] h-[50px] border border-white rounded-[20px] my-[10px] px-4"
+                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
                     />
 
                     <input
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
                         placeholder="Last Name"
-                        className="w-[300px] h-[50px] border border-white rounded-[20px] my-[10px] px-4"
+                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
                     />
 
                     <input
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                         placeholder="Email"
-                        className="w-[300px] h-[50px] border border-white rounded-[20px] my-[10px] px-4"
+                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
                     />
 
                     <input
@@ -68,7 +68,7 @@ export default function RegisterPage() {
                         value={password}
                         type="password"
                         placeholder="Password"
-                        className="w-[300px] h-[50px] border border-white rounded-[20px] my-[10px] px-4"
+                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
                     />
 
                     <button

@@ -21,7 +21,7 @@ export default function LoginPage() {
                 const token = response.data.token
                 localStorage.setItem("token", token)
                 if(response.data.role === "admin"){
-                    navigate("/admin/")
+                    navigate("/adminPage")
                 }else{
                     navigate("/")
                 }
@@ -65,13 +65,16 @@ export default function LoginPage() {
                             setEmail(e.target.value);
                         }}
                         value={email}
-                        className="w-[300px] h-[50px] border border-white rounded-[20px] my-[20px]" />
+                        placeholder="Email"
+                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[20px] px-4" />
                     <input
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
                         value={password}
-                        type="password" className="w-[300px] h-[50px] border border-white rounded-[20px] mb-[20px]" />
+                        type="password"
+                        placeholder="Password"
+                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[20px] px-4" />
                     <button onClick={handleLogin} className="w-[300px] h-[50px] cursor-pointer bg-gray-400 rounded-[20px] text-[20px] font-bold my-[20px]">Login</button>
                     <button onClick={googleLogin} className="group relative flex w-[300px] h-[55px] items-center justify-center gap-3 overflow-hidden rounded-[15px] border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
                         <GrGoogle className="text-2xl text-gray-700 transition-colors group-hover:text-gray-500" />

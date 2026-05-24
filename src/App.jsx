@@ -23,7 +23,7 @@ function App() {
           <Route path="/forget" element={<ForgetPasswordPage/>}/>
           <Route path="/signup" element={<RegisterPage/>} />
           <Route path="testPage" element={<TestPage/>}/>
-          <Route path="/adminPage*" element={<AdminPage/>} />
+          <Route path="/adminPage/*" element={<AdminPage/>} />
           <Route path="/*" element={<HomePage/>}/>
         </Routes>
       </BrowserRouter>

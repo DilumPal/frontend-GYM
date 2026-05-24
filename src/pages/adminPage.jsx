@@ -12,7 +12,7 @@ import Loading from "../components/loding";
 export default function AdminPage() {
     const location = useLocation();
     const path = location.pathname;
-    const [status, setStatus] = useState("Loading...");
+    const [status, setStatus] = useState("Loading");
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -26,6 +26,7 @@ export default function AdminPage() {
                     Authorization: `Bearer ${token}`,
                 },
             }).then((response) => {
+                console.log("Frontend received user data:", response.data);
                 if (response.data.role !== "admin") {
                     setStatus("Unauthorized");
                     toast.error("You are not authorized to access this page");
@@ -38,7 +39,7 @@ export default function AdminPage() {
                 window.location.href = "/login";
             });
         }
-    }, [status]);
+    }, []);
 
     function getClass(name) {
         if (path.includes(name)) {
