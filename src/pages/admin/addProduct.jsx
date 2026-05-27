@@ -49,7 +49,7 @@ export default function AddProductPage() {
     const [name, setName] = useState("");
     const [altNames, setAltNames] = useState("");
     const [description, setDescription] = useState("");
-    const [labaledPrice, setLabaledPrice] = useState(0);
+    const [labelledPrice, setLabelledPrice] = useState(0);
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState([]);
@@ -86,7 +86,7 @@ export default function AddProductPage() {
                 altNames: altNamesArray,
                 description: description,
                 images: imageUrls,
-                labaledPrice: labaledPrice,
+                labelledPrice: labelledPrice,
                 price: price,
                 stock: stock,
             }
@@ -114,7 +114,7 @@ export default function AddProductPage() {
             <input type="text" placeholder="Alt Names (comma separated)" className="input input-bordered w-full max-w-xs" onChange={(e) => { setAltNames(e.target.value) }} />
             <input type="text" placeholder="Description" className="textarea textarea-bordered w-full max-w-xs" onChange={(e) => { setDescription(e.target.value) }} />
             <input type="file" placeholder="Images" multiple className="input input-bordered w-full max-w-xs" onChange={(e) => { setImages(e.target.files) }} />
-            <input type="number" placeholder="Labaled Price" className="input input-bordered w-full max-w-xs" onChange={(e) => { setLabaledPrice(e.target.value) }} />
+            <input type="number" placeholder="Labelled Price" className="input input-bordered w-full max-w-xs" onChange={(e) => { setLabelledPrice(e.target.value) }} />
             <input type="number" placeholder="Price" className="input input-bordered w-full max-w-xs" onChange={(e) => { setPrice(e.target.value) }} />
             <input type="number" placeholder="Stock" className="input input-bordered w-full max-w-xs" onChange={(e) => { setStock(e.target.value) }} />
 
