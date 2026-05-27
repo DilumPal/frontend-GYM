@@ -13,7 +13,7 @@ export default function Header(){
             <GiHamburgerMenu className="h-full mx-2 text-3xl md:hidden absolute left-2" onClick={()=>{
                 setSideDrawerOpened(true)
             }}/>
-            <img src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer top-0 left-0 m-2" />
+            <img src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer top-0 left-0 bg-white" />
             <div className="w-[calc(100%-160px)] h-full bg-accent hidden md:flex justify-center items-center">
                 <Link to="/" className= "text-[20px] font-bold mx-2">Home</Link>
                 <Link to="/products" className="text-[20px] font-bold mx-2">Products</Link>

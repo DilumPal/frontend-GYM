@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
                     disabled={!product.isAvailable}
                     className={`mt-3 py-2 rounded-lg font-medium transition ${
                         product.isAvailable
-                            ? "bg-blue-600 text-white hover:bg-blue-700"
+                            ? "bg-accent text-white hover:bg-accent/80 cursor-pointer"
                             : "bg-gray-300 text-gray-500 cursor-not-allowed"
                     }`}
                 >
