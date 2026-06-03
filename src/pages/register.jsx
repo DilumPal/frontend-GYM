@@ -4,80 +4,209 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
-
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
 
-    const navigate = useNavigate("");
+    const navigate = useNavigate();
 
     async function handleRegister() {
         try {
-            const response = await axios.post(
+            await axios.post(
                 import.meta.env.VITE_BACKEND_URL + "/api/users",
                 {
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName,
-                    password: password
-                    // role, isBlocked, img → will take default values from schema
+                    email,
+                    firstName,
+                    lastName,
+                    password,
                 }
             );
 
             toast.success("Registration Successful");
-
             navigate("/login");
-
         } catch (e) {
-            toast.error(e.response?.data?.message || "Registration Failed");
+            toast.error(
+                e.response?.data?.message || "Registration Failed"
+            );
         }
     }
 
     return (
-        <div className="w-full h-screen bg-[url('/login.jpg')] bg-center bg-cover flex justify-center items-center">
-            
-            <div className="w-[50%] h-full"></div>
+        <div className="relative flex h-screen w-full items-center justify-center bg-[url('/login.png')] bg-cover bg-center">
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/60"></div>
 
-            <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[500px] h-[650px] backdrop-blur-md rounded-[20px] shadow-xl flex flex-col justify-center items-center">
+            {/* Left Side */}
+            <div className="hidden md:block w-1/2 h-full"></div>
 
+            {/* Register Section */}
+            <div className="relative z-10 flex h-full w-full md:w-1/2 items-center justify-center px-6">
+                <div
+                    className="
+                        flex
+                        h-[650px]
+                        w-[500px]
+                        flex-col
+                        items-center
+                        justify-center
+                        rounded-[24px]
+                        border
+                        border-white/15
+                        bg-white/5
+                        px-8
+                        backdrop-blur-2xl
+                        shadow-[0_8px_32px_rgba(0,0,0,0.35)]
+                    "
+                >
+                    {/* Heading */}
+                    <h1 className="mb-2 text-4xl font-bold text-[#08CB00]">
+                        Create Account
+                    </h1>
+
+                    <p className="mb-8 text-[#EEEEEE]/70">
+                        Register to get started
+                    </p>
+
+                    {/* First Name */}
                     <input
-                        onChange={(e) => setFirstName(e.target.value)}
-                        value={firstName}
+                        type="text"
                         placeholder="First Name"
-                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        className="
+                            my-3
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            px-4
+                            text-[#EEEEEE]
+                            backdrop-blur-md
+                            outline-none
+                            transition-all
+                            placeholder:text-[#EEEEEE]/40
+                            focus:border-[#08CB00]
+                            focus:ring-2
+                            focus:ring-[#08CB00]/30
+                        "
                     />
 
+                    {/* Last Name */}
                     <input
-                        onChange={(e) => setLastName(e.target.value)}
-                        value={lastName}
+                        type="text"
                         placeholder="Last Name"
-                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className="
+                            my-3
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            px-4
+                            text-[#EEEEEE]
+                            backdrop-blur-md
+                            outline-none
+                            transition-all
+                            placeholder:text-[#EEEEEE]/40
+                            focus:border-[#08CB00]
+                            focus:ring-2
+                            focus:ring-[#08CB00]/30
+                        "
                     />
 
+                    {/* Email */}
                     <input
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
+                        type="email"
                         placeholder="Email"
-                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="
+                            my-3
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            px-4
+                            text-[#EEEEEE]
+                            backdrop-blur-md
+                            outline-none
+                            transition-all
+                            placeholder:text-[#EEEEEE]/40
+                            focus:border-[#08CB00]
+                            focus:ring-2
+                            focus:ring-[#08CB00]/30
+                        "
                     />
 
+                    {/* Password */}
                     <input
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
                         type="password"
                         placeholder="Password"
-                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[10px] px-4"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="
+                            my-3
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            px-4
+                            text-[#EEEEEE]
+                            backdrop-blur-md
+                            outline-none
+                            transition-all
+                            placeholder:text-[#EEEEEE]/40
+                            focus:border-[#08CB00]
+                            focus:ring-2
+                            focus:ring-[#08CB00]/30
+                        "
                     />
 
+                    {/* Register Button */}
                     <button
                         onClick={handleRegister}
-                        className="w-[300px] h-[50px] cursor-pointer bg-gray-400 rounded-[20px] text-[20px] font-bold my-[20px]"
+                        className="
+                            mt-8
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            bg-[#08CB00]
+                            font-bold
+                            text-black
+                            transition-all
+                            duration-300
+                            hover:scale-[1.02]
+                            hover:shadow-[0_0_25px_rgba(8,203,0,0.45)]
+                        "
                     >
                         Register
                     </button>
 
+                    {/* Login Link */}
+                    <p className="mt-6 text-sm text-[#EEEEEE]/70">
+                        Already have an account?{" "}
+                        <span
+                            onClick={() => navigate("/login")}
+                            className="
+                                cursor-pointer
+                                text-[#08CB00]
+                                transition-colors
+                                hover:text-[#0ef005]
+                            "
+                        >
+                            Login
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>

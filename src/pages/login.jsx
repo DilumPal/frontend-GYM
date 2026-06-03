@@ -1,90 +1,219 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useState } from "react"
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { GrGoogle } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 
-
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate("");
+    const navigate = useNavigate();
 
     const googleLogin = useGoogleLogin({
-        onSuccess: (response)=>{
-            const accessToken = response.access_token
-            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login/google", {
-                accessToken: accessToken
-            }).then((response)=>{
-                toast.success("Login successful")
-                const token = response.data.token
-                localStorage.setItem("token", token)
-                if(response.data.role === "admin"){
-                    navigate("/adminPage")
-                }else{
-                    navigate("/")
-                }
-            })
-        }
-    })
+        onSuccess: (response) => {
+            const accessToken = response.access_token;
+
+            axios
+                .post(
+                    import.meta.env.VITE_BACKEND_URL +
+                        "/api/users/login/google",
+                    {
+                        accessToken,
+                    }
+                )
+                .then((response) => {
+                    toast.success("Login Successful");
+
+                    localStorage.setItem("token", response.data.token);
+
+                    if (response.data.role === "admin") {
+                        navigate("/adminPage");
+                    } else {
+                        navigate("/");
+                    }
+                })
+                .catch(() => {
+                    toast.error("Google login failed");
+                });
+        },
+    });
 
     async function handleLogin() {
-
         try {
-            const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/login", {
-                email: email,
-                password: password
-            })
-            //alert("Login Successful");
-            toast.success("Login Successful")
-            console.log(response.data);
-            localStorage.setItem("token", response.data.token)
+            const response = await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/api/users/login",
+                {
+                    email,
+                    password,
+                }
+            );
 
-            if (response.data.role == "admin") {
-                navigate("/adminPage")
+            toast.success("Login Successful");
+
+            localStorage.setItem("token", response.data.token);
+
+            if (response.data.role === "admin") {
+                navigate("/adminPage");
             } else {
-                navigate("/")
+                navigate("/");
             }
         } catch (e) {
-            //alert(e.response.data.message);
-            toast.error(e.response.data.message);
+            toast.error(
+                e?.response?.data?.message || "Login failed. Please try again."
+            );
         }
-
     }
 
     return (
-        <div className="w-full h-screen bg-[url('/login.jpg')] bg-center bg-cover flex justify-center items-center">
-            <div className="w-[50%] h-full">
+        <div className="relative flex h-screen w-full items-center justify-center bg-[url('/login.png')] bg-cover bg-center">
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/60"></div>
 
-            </div>
-            <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[500px] h-[600px] backdrop-blur-md rounded-[20px] shadow-xl flex flex-col justify-center items-center">
+            {/* Empty left side for desktop */}
+            <div className="hidden md:block w-1/2 h-full"></div>
+
+            {/* Login Section */}
+            <div className="relative z-10 flex h-full w-full md:w-1/2 items-center justify-center px-6">
+                <div
+                    className="
+                        flex
+                        h-[600px]
+                        w-[500px]
+                        flex-col
+                        items-center
+                        justify-center
+                        rounded-[24px]
+                        border
+                        border-white/15
+                        bg-white/5
+                        px-8
+                        backdrop-blur-2xl
+                        shadow-[0_8px_32px_rgba(0,0,0,0.35)]
+                    "
+                >
+                    {/* Heading */}
+                    <h1 className="mb-2 text-4xl font-bold text-[#08CB00]">
+                        Welcome Back
+                    </h1>
+
+                    <p className="mb-10 text-[#EEEEEE]/70">
+                        Sign in to continue
+                    </p>
+
+                    {/* Email */}
                     <input
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                        }}
-                        value={email}
+                        type="email"
                         placeholder="Email"
-                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[20px] px-4" />
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="
+                            my-3
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            px-4
+                            text-[#EEEEEE]
+                            backdrop-blur-md
+                            outline-none
+                            transition-all
+                            placeholder:text-[#EEEEEE]/40
+                            focus:border-[#08CB00]
+                            focus:ring-2
+                            focus:ring-[#08CB00]/30
+                        "
+                    />
+
+                    {/* Password */}
                     <input
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                        }}
-                        value={password}
                         type="password"
                         placeholder="Password"
-                        className="w-[300px] h-[50px] text-secondary border border-white rounded-[20px] my-[20px] px-4" />
-                    <button onClick={handleLogin} className="w-[300px] h-[50px] cursor-pointer bg-gray-400 rounded-[20px] text-[20px] font-bold my-[20px]">Login</button>
-                    <button onClick={googleLogin} className="group relative flex w-[300px] h-[55px] items-center justify-center gap-3 overflow-hidden rounded-[15px] border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-                        <GrGoogle className="text-2xl text-gray-700 transition-colors group-hover:text-gray-500" />
-                        <span className="text-lg font-semibold text-gray-700 transition-colors group-hover:text-gray-500">
-                            Login With Google
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="
+                            my-3
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            px-4
+                            text-[#EEEEEE]
+                            backdrop-blur-md
+                            outline-none
+                            transition-all
+                            placeholder:text-[#EEEEEE]/40
+                            focus:border-[#08CB00]
+                            focus:ring-2
+                            focus:ring-[#08CB00]/30
+                        "
+                    />
+
+                    {/* Login Button */}
+                    <button
+                        onClick={handleLogin}
+                        className="
+                            mt-6
+                            mb-4
+                            h-[55px]
+                            w-[320px]
+                            rounded-[15px]
+                            bg-[#08CB00]
+                            font-bold
+                            text-black
+                            transition-all
+                            duration-300
+                            hover:scale-[1.02]
+                            hover:shadow-[0_0_25px_rgba(8,203,0,0.45)]
+                        "
+                    >
+                        Login
+                    </button>
+
+                    {/* Divider */}
+                    <div className="my-5 flex w-[320px] items-center">
+                        <div className="h-px flex-1 bg-white/10"></div>
+                        <span className="px-3 text-sm text-[#EEEEEE]/50">
+                            OR
+                        </span>
+                        <div className="h-px flex-1 bg-white/10"></div>
+                    </div>
+
+                    {/* Google Login */}
+                    <button
+                        onClick={googleLogin}
+                        className="
+                            group
+                            flex
+                            h-[55px]
+                            w-[320px]
+                            items-center
+                            justify-center
+                            gap-3
+                            rounded-[15px]
+                            border
+                            border-white/10
+                            bg-white/5
+                            backdrop-blur-md
+                            transition-all
+                            duration-300
+                            hover:border-[#08CB00]
+                            hover:bg-white/10
+                            hover:shadow-[0_0_20px_rgba(8,203,0,0.15)]
+                        "
+                    >
+                        <GrGoogle className="text-xl text-[#EEEEEE]" />
+
+                        <span className="font-semibold text-[#EEEEEE]">
+                            Continue with Google
                         </span>
                     </button>
                 </div>
-
             </div>
         </div>
-    )
+    );
 }
