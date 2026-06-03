@@ -71,7 +71,7 @@ export default function LandingPage() {
 
       {/* 3. CATEGORY GRID */}
       <section className="w-full max-w-7xl py-16 px-4">
-        <h2 className="text-3xl font-bold text-center mb-10 uppercase tracking-wide">
+        <h2 className="text-3xl text-secondary font-bold text-center mb-10 uppercase tracking-wide">
           Shop by Category
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -122,7 +122,7 @@ export default function LandingPage() {
       {/* 4. FEATURED PRODUCTS */}
       <section className="w-full bg-gray-100 py-16 px-4 flex justify-center">
         <div className="w-full max-w-7xl">
-          <h2 className="text-3xl font-bold text-center mb-10 uppercase tracking-wide">
+          <h2 className="text-3xl text-secondary font-bold text-center mb-10 uppercase tracking-wide">
             Best Sellers
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
