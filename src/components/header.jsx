@@ -1,49 +1,129 @@
-import { Link, useNavigate } from "react-router-dom";
-import UserData from "./userData";
+import { Link } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
-import { GiHamburgerMenu } from "react-icons/gi"
+import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 
-export default function Header(){
-    const [sideDrawerOpened, setSideDrawerOpened] = useState(false)
-    const navigate = useNavigate()
+export default function Header() {
+    const [sideDrawerOpened, setSideDrawerOpened] = useState(false);
 
-    return(
-        <header className="w-full h-[80px] shadow-2xl flex justify-center relative" >
-            <GiHamburgerMenu className="h-full mx-2 text-3xl md:hidden absolute left-2" onClick={()=>{
-                setSideDrawerOpened(true)
-            }}/>
-            <img src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer top-0 left-0 bg-white" />
-            <div className="w-[calc(100%-160px)] h-full bg-accent hidden md:flex justify-center items-center">
-                <Link to="/" className= "text-[20px] font-bold mx-2">Home</Link>
-                <Link to="/products" className="text-[20px] font-bold mx-2">Products</Link>
-                <Link to="/search" className="text-[20px] font-bold mx-2">Search</Link>
-            </div>
-            <div className="w-[80px] bg-green-300 hidden md:flex justify-center items-center">
-                <Link to="/cart" className="text-[30px] font-bold mx-2">
-                    <IoCart/>
+    return (
+        <header className="w-full h-[80px] bg-black border-b border-[#08CB00]/20 shadow-lg flex justify-center items-center relative">
+
+            {/* Mobile Menu Button */}
+            <GiHamburgerMenu
+                className="absolute left-4 text-3xl text-[#EEEEEE] cursor-pointer md:hidden"
+                onClick={() => setSideDrawerOpened(true)}
+            />
+
+            {/* Logo */}
+            <img
+                src="/logo.png"
+                alt="Logo"
+                className="w-[80px] h-[80px] object-cover cursor-pointer bg-white"
+                onClick={() => (window.location.href = "/")}
+            />
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex w-[calc(100%-160px)] h-full items-center justify-center gap-8 bg-black">
+                <Link
+                    to="/"
+                    className="text-[#EEEEEE] text-lg font-semibold hover:text-[#08CB00] transition-colors"
+                >
+                    Home
+                </Link>
+
+                <Link
+                    to="/products"
+                    className="text-[#EEEEEE] text-lg font-semibold hover:text-[#08CB00] transition-colors"
+                >
+                    Products
+                </Link>
+
+                <Link
+                    to="/search"
+                    className="text-[#EEEEEE] text-lg font-semibold hover:text-[#08CB00] transition-colors"
+                >
+                    Search
                 </Link>
             </div>
-            {
-                sideDrawerOpened&&
-                <div className="fixed h-screen w-full bg-[#00000060] flex md:hidden">
-                    <div className="w-[250px] bg-white h-full">
-                        <div className="w-full h-[80px] shadow-2xl flex justify-center items-center relative">
-                            <GiHamburgerMenu className="h-full text-3xl absolute left-2 cursor-pointer" onClick={()=>{
-                                setSideDrawerOpened(false)
-                            }}/>
-                            <img onClick={()=>{
-                                window.location.href = "/"
-                            }} src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer"/>
+
+            {/* Cart */}
+            <div className="hidden md:flex w-[80px] h-full items-center justify-center bg-black">
+                <Link
+                    to="/cart"
+                    className="text-3xl text-[#EEEEEE] hover:text-[#08CB00] transition-colors"
+                >
+                    <IoCart />
+                </Link>
+            </div>
+
+            {/* Mobile Drawer */}
+            {sideDrawerOpened && (
+                <div className="fixed inset-0 z-50 flex md:hidden bg-black/70 backdrop-blur-sm">
+                    <div className="w-[280px] h-full bg-[#111111] border-r border-[#08CB00]/20 shadow-xl">
+
+                        {/* Drawer Header */}
+                        <div className="w-full h-[80px] flex items-center justify-center relative border-b border-[#08CB00]/20">
+                            <GiHamburgerMenu
+                                className="absolute left-4 text-3xl text-[#EEEEEE] cursor-pointer"
+                                onClick={() => setSideDrawerOpened(false)}
+                            />
+
+                            <img
+                                src="/logo.png"
+                                alt="Logo"
+                                className="w-[80px] h-[80px] object-cover cursor-pointer bg-white"
+                                onClick={() => {
+                                    setSideDrawerOpened(false);
+                                    window.location.href = "/";
+                                }}
+                            />
                         </div>
-                        <div className="w-full h-[calc(100%-80px)] flex flex-col items-center gap-2">
-                            <a href="/" className="text-[20px] font-bold mx-2 my-4">Home</a>
-                            <a href="/products" className="text-[20px] font-bold mx-2 my-4">Products</a>
-                            <a href="/cart" className="text-[20px] font-bold mx-2 my-4"><IoCart/></a>
+
+                        {/* Drawer Links */}
+                        <div className="flex flex-col items-center py-8 gap-6">
+
+                            <Link
+                                to="/"
+                                className="text-[#EEEEEE] text-xl font-semibold hover:text-[#08CB00] transition-colors"
+                                onClick={() => setSideDrawerOpened(false)}
+                            >
+                                Home
+                            </Link>
+
+                            <Link
+                                to="/products"
+                                className="text-[#EEEEEE] text-xl font-semibold hover:text-[#08CB00] transition-colors"
+                                onClick={() => setSideDrawerOpened(false)}
+                            >
+                                Products
+                            </Link>
+
+                            <Link
+                                to="/search"
+                                className="text-[#EEEEEE] text-xl font-semibold hover:text-[#08CB00] transition-colors"
+                                onClick={() => setSideDrawerOpened(false)}
+                            >
+                                Search
+                            </Link>
+
+                            <Link
+                                to="/cart"
+                                className="text-[#EEEEEE] text-3xl hover:text-[#08CB00] transition-colors"
+                                onClick={() => setSideDrawerOpened(false)}
+                            >
+                                <IoCart />
+                            </Link>
                         </div>
                     </div>
+
+                    {/* Click Outside to Close */}
+                    <div
+                        className="flex-1"
+                        onClick={() => setSideDrawerOpened(false)}
+                    />
                 </div>
-            }
+            )}
         </header>
-    )
+    );
 }
