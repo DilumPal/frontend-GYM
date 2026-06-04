@@ -37,7 +37,9 @@ export default function AdminProductPage() {
 
         axios
             .delete(
-                import.meta.env.VITE_BACKEND_URL + "/api/products/" + productID,
+                import.meta.env.VITE_BACKEND_URL +
+                    "/api/products/" +
+                    productID,
                 {
                     headers: {
                         Authorization: "Bearer " + token,
@@ -46,36 +48,55 @@ export default function AdminProductPage() {
             )
             .then(() => {
                 toast.success("Product deleted");
+
                 setProducts((prev) =>
-                    prev.filter((item) => item.productID !== productID)
+                    prev.filter(
+                        (item) => item.productID !== productID
+                    )
                 );
             })
             .catch((e) => {
-                toast.error(e?.response?.data?.message || "Delete failed");
+                toast.error(
+                    e?.response?.data?.message || "Delete failed"
+                );
             });
     }
 
     return (
-        <div className="w-full h-full flex flex-col overflow-hidden relative">
+        <div className="w-full h-full flex flex-col overflow-hidden relative bg-[#1A1A1A] text-white">
+            {/* Header */}
+            <div className="px-6 pt-6 pb-4">
+                <h1 className="text-3xl font-bold text-[#E53935]">
+                    Product Management
+                </h1>
+                <p className="text-white/60 mt-1">
+                    Manage all products in your store
+                </p>
+            </div>
 
-            {/* Scrollable Table Area */}
-            <div className="flex-1 overflow-y-auto p-4">
-
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto px-6 pb-6">
                 {loading ? (
                     <div className="w-full h-full flex justify-center items-center">
-                        <div className="w-[60px] h-[60px] border-4 border-gray-300 border-t-accent rounded-full animate-spin"></div>
+                        <div className="w-[60px] h-[60px] border-4 border-[#333333] border-t-[#E53935] rounded-full animate-spin"></div>
                     </div>
                 ) : products.length === 0 ? (
-                    <div className="text-center text-gray-500 mt-20">
+                    <div className="text-center text-white/50 mt-20 text-lg">
                         No products found
                     </div>
                 ) : (
-                    <div className="rounded-xl border border-gray-300 shadow-sm overflow-hidden">
-                        
-                        <table className="w-full text-sm text-left">
-                            
-                            {/* Sticky Header */}
-                            <thead className="bg-primary text-white sticky top-0 z-10">
+                    <div
+                        className="
+                            rounded-2xl
+                            border
+                            border-[#E53935]/20
+                            bg-[#222222]
+                            overflow-hidden
+                            shadow-[0_0_20px_rgba(229,57,53,0.08)]
+                        "
+                    >
+                        <table className="w-full text-sm text-left text-white">
+                            <thead className="bg-[#1A1A1A] text-[#E53935] sticky top-0 z-10 border-b border-[#E53935]/20">
                                 <tr>
                                     <th className="p-4">ID</th>
                                     <th className="p-4">Product</th>
@@ -83,15 +104,24 @@ export default function AdminProductPage() {
                                     <th className="p-4">Label Price</th>
                                     <th className="p-4">Price</th>
                                     <th className="p-4">Stock</th>
-                                    <th className="p-4 text-center">Actions</th>
+                                    <th className="p-4 text-center">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 {products.map((item, index) => (
                                     <tr
-                                        key={index}
-                                        className="border-b hover:bg-gray-100 transition"
+                                        key={
+                                            item.productID || index
+                                        }
+                                        className="
+                                            border-b
+                                            border-[#333333]
+                                            hover:bg-[#2A2A2A]
+                                            transition
+                                        "
                                     >
                                         <td className="p-4 font-medium">
                                             {item.productID}
@@ -103,23 +133,35 @@ export default function AdminProductPage() {
 
                                         <td className="p-4">
                                             <img
-                                                src={item.images?.[0]}
+                                                src={
+                                                    item.images?.[0] ||
+                                                    "https://via.placeholder.com/100"
+                                                }
                                                 alt={item.name}
-                                                className="w-12 h-12 object-cover rounded-lg border"
+                                                className="
+                                                    w-12
+                                                    h-12
+                                                    object-cover
+                                                    rounded-lg
+                                                    border
+                                                    border-[#444444]
+                                                "
                                             />
                                         </td>
 
-                                        <td className="p-4">
-                                            Rs. {item.labelledPrice?.toLocaleString()}
+                                        <td className="p-4 text-white/70">
+                                            Rs.{" "}
+                                            {item.labelledPrice?.toLocaleString()}
                                         </td>
 
-                                        <td className="p-4 font-semibold text-green-600">
-                                            Rs. {item.price?.toLocaleString()}
+                                        <td className="p-4 font-semibold text-[#E53935]">
+                                            Rs.{" "}
+                                            {item.price?.toLocaleString()}
                                         </td>
 
                                         <td className="p-4">
                                             {item.stock > 0 ? (
-                                                <span className="text-green-600 font-semibold">
+                                                <span className="text-[#E53935] font-semibold">
                                                     {item.stock}
                                                 </span>
                                             ) : (
@@ -130,33 +172,50 @@ export default function AdminProductPage() {
                                         </td>
 
                                         <td className="p-4">
-                                            <div className="flex justify-center gap-4">
+                                            <div className="flex justify-center gap-5">
                                                 <button
                                                     onClick={() =>
                                                         navigate(
                                                             "/adminPage/edit-product",
-                                                            { state: item }
+                                                            {
+                                                                state: item,
+                                                            }
                                                         )
                                                     }
-                                                    className="text-blue-500 hover:scale-110 transition"
+                                                    className="
+                                                        text-white
+                                                        hover:text-[#E53935]
+                                                        hover:scale-110
+                                                        transition
+                                                    "
                                                 >
-                                                    <FaEdit size={18} />
+                                                    <FaEdit
+                                                        size={18}
+                                                    />
                                                 </button>
 
                                                 <button
                                                     onClick={() =>
-                                                        deleteProduct(item.productID)
+                                                        deleteProduct(
+                                                            item.productID
+                                                        )
                                                     }
-                                                    className="text-red-500 hover:scale-110 transition"
+                                                    className="
+                                                        text-red-500
+                                                        hover:text-red-400
+                                                        hover:scale-110
+                                                        transition
+                                                    "
                                                 >
-                                                    <FaTrash size={18} />
+                                                    <FaTrash
+                                                        size={18}
+                                                    />
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
-
                         </table>
                     </div>
                 )}
@@ -165,11 +224,26 @@ export default function AdminProductPage() {
             {/* Floating Add Product Button */}
             <Link
                 to="/adminPage/add-product"
-                className="fixed bottom-6 right-6 flex items-center gap-2 
-                           bg-accent text-primary font-semibold 
-                           px-6 py-3 rounded-full shadow-lg 
-                           hover:scale-105 hover:shadow-xl 
-                           transition-all duration-200 z-50"
+                className="
+                    fixed
+                    bottom-6
+                    right-6
+                    flex
+                    items-center
+                    gap-2
+                    bg-[#E53935]
+                    text-white
+                    font-bold
+                    px-6
+                    py-3
+                    rounded-full
+                    shadow-[0_0_20px_rgba(229,57,53,0.35)]
+                    hover:scale-105
+                    hover:shadow-[0_0_30px_rgba(229,57,53,0.55)]
+                    transition-all
+                    duration-300
+                    z-50
+                "
             >
                 <span className="text-xl">+</span>
                 Add Product

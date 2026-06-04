@@ -7,11 +7,11 @@ export default function Header() {
     const [sideDrawerOpened, setSideDrawerOpened] = useState(false);
 
     return (
-        <header className="w-full h-[80px] bg-black border-b border-[#08CB00]/20 shadow-lg flex justify-center items-center relative">
+        <header className="w-full h-[80px] bg-[#1A1A1A] border-b border-[#E53935]/30 shadow-[0_2px_15px_rgba(229,57,53,0.15)] flex justify-center items-center relative">
 
             {/* Mobile Menu Button */}
             <GiHamburgerMenu
-                className="absolute left-4 text-3xl text-[#EEEEEE] cursor-pointer md:hidden"
+                className="absolute left-4 text-3xl text-[#FFFFFF] cursor-pointer md:hidden"
                 onClick={() => setSideDrawerOpened(true)}
             />
 
@@ -19,39 +19,39 @@ export default function Header() {
             <img
                 src="/logo.png"
                 alt="Logo"
-                className="w-[80px] h-[80px] object-cover cursor-pointer bg-white"
+                className="w-[80px] h-[80px] object-cover cursor-pointer bg-[#FFFFFF]"
                 onClick={() => (window.location.href = "/")}
             />
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex w-[calc(100%-160px)] h-full items-center justify-center gap-8 bg-black">
+            <div className="hidden md:flex w-[calc(100%-160px)] h-full items-center justify-center gap-8 bg-[#1A1A1A]">
                 <Link
                     to="/"
-                    className="text-[#EEEEEE] text-lg font-semibold hover:text-[#08CB00] transition-colors"
+                    className="text-[#FFFFFF] text-lg font-semibold hover:text-[#E53935] transition-colors duration-300"
                 >
                     Home
                 </Link>
 
                 <Link
                     to="/products"
-                    className="text-[#EEEEEE] text-lg font-semibold hover:text-[#08CB00] transition-colors"
+                    className="text-[#FFFFFF] text-lg font-semibold hover:text-[#E53935] transition-colors duration-300"
                 >
                     Products
                 </Link>
 
                 <Link
                     to="/search"
-                    className="text-[#EEEEEE] text-lg font-semibold hover:text-[#08CB00] transition-colors"
+                    className="text-[#FFFFFF] text-lg font-semibold hover:text-[#E53935] transition-colors duration-300"
                 >
                     Search
                 </Link>
             </div>
 
             {/* Cart */}
-            <div className="hidden md:flex w-[80px] h-full items-center justify-center bg-black">
+            <div className="hidden md:flex w-[80px] h-full items-center justify-center bg-[#1A1A1A]">
                 <Link
                     to="/cart"
-                    className="text-3xl text-[#EEEEEE] hover:text-[#08CB00] transition-colors"
+                    className="text-3xl text-[#FFFFFF] hover:text-[#E53935] transition-colors duration-300"
                 >
                     <IoCart />
                 </Link>
@@ -59,20 +59,20 @@ export default function Header() {
 
             {/* Mobile Drawer */}
             {sideDrawerOpened && (
-                <div className="fixed inset-0 z-50 flex md:hidden bg-black/70 backdrop-blur-sm">
-                    <div className="w-[280px] h-full bg-[#111111] border-r border-[#08CB00]/20 shadow-xl">
+                <div className="fixed inset-0 z-50 flex md:hidden bg-black/60 backdrop-blur-sm">
+                    <div className="w-[280px] h-full bg-[#1A1A1A] border-r border-[#E53935]/30 shadow-xl">
 
                         {/* Drawer Header */}
-                        <div className="w-full h-[80px] flex items-center justify-center relative border-b border-[#08CB00]/20">
+                        <div className="w-full h-[80px] flex items-center justify-center relative border-b border-[#E53935]/30">
                             <GiHamburgerMenu
-                                className="absolute left-4 text-3xl text-[#EEEEEE] cursor-pointer"
+                                className="absolute left-4 text-3xl text-[#FFFFFF] cursor-pointer"
                                 onClick={() => setSideDrawerOpened(false)}
                             />
 
                             <img
                                 src="/logo.png"
                                 alt="Logo"
-                                className="w-[80px] h-[80px] object-cover cursor-pointer bg-white"
+                                className="w-[80px] h-[80px] object-cover cursor-pointer bg-[#FFFFFF]"
                                 onClick={() => {
                                     setSideDrawerOpened(false);
                                     window.location.href = "/";
@@ -85,7 +85,7 @@ export default function Header() {
 
                             <Link
                                 to="/"
-                                className="text-[#EEEEEE] text-xl font-semibold hover:text-[#08CB00] transition-colors"
+                                className="text-[#FFFFFF] text-xl font-semibold hover:text-[#E53935] transition-colors duration-300"
                                 onClick={() => setSideDrawerOpened(false)}
                             >
                                 Home
@@ -93,7 +93,7 @@ export default function Header() {
 
                             <Link
                                 to="/products"
-                                className="text-[#EEEEEE] text-xl font-semibold hover:text-[#08CB00] transition-colors"
+                                className="text-[#FFFFFF] text-xl font-semibold hover:text-[#E53935] transition-colors duration-300"
                                 onClick={() => setSideDrawerOpened(false)}
                             >
                                 Products
@@ -101,7 +101,7 @@ export default function Header() {
 
                             <Link
                                 to="/search"
-                                className="text-[#EEEEEE] text-xl font-semibold hover:text-[#08CB00] transition-colors"
+                                className="text-[#FFFFFF] text-xl font-semibold hover:text-[#E53935] transition-colors duration-300"
                                 onClick={() => setSideDrawerOpened(false)}
                             >
                                 Search
@@ -109,7 +109,7 @@ export default function Header() {
 
                             <Link
                                 to="/cart"
-                                className="text-[#EEEEEE] text-3xl hover:text-[#08CB00] transition-colors"
+                                className="text-[#FFFFFF] text-3xl hover:text-[#E53935] transition-colors duration-300"
                                 onClick={() => setSideDrawerOpened(false)}
                             >
                                 <IoCart />

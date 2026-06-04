@@ -58,55 +58,78 @@ export default function AdminOrdersPage() {
     function getStatusStyle(status) {
         switch (status?.toLowerCase()) {
             case "pending":
-                return "bg-yellow-100 text-yellow-700 border-yellow-300";
-
+                return "bg-yellow-500/10 text-yellow-400 border-yellow-500/30";
             case "completed":
-                return "bg-green-100 text-green-700 border-green-300";
-
+                /* Theme Update: Completed color synced to the new theme accent */
+                return "bg-[#E53935]/10 text-[#E53935] border-[#E53935]/30";
+            case "canceled":
             case "cancelled":
-                return "bg-red-100 text-red-700 border-red-300";
-
+                return "bg-red-500/10 text-red-400 border-red-500/30";
             default:
-                return "bg-gray-100 text-gray-700 border-gray-300";
+                return "bg-[#FFFFFF]/10 text-[#FFFFFF]/80 border-[#FFFFFF]/20";
         }
     }
 
     return (
-        <div className="w-full h-full flex flex-col overflow-hidden">
-            <div className="flex-1 overflow-y-auto p-4">
+        /* Theme Update 1: Main Container background & text color */
+        <div className="w-full h-full flex flex-col overflow-hidden relative bg-[#1A1A1A] text-[#FFFFFF]">
+            
+            {/* Page Header */}
+            <div className="px-6 pt-6 pb-4">
+                {/* Theme Update 2: Header title and text opacity colors */}
+                <h1 className="text-3xl font-bold text-[#E53935]">
+                    Order Management
+                </h1>
+                <p className="text-[#FFFFFF]/60 mt-1">
+                    Track and update customer orders
+                </p>
+            </div>
+
+            {/* Scrollable Table Area */}
+            <div className="flex-1 overflow-y-auto px-6 pb-6">
 
                 {isLoading ? (
-                    <Loading />
+                    <div className="w-full h-full flex justify-center items-center">
+                        {/* Theme Update 3: Loading spinner top-border color */}
+                        <div className="w-[60px] h-[60px] border-4 border-[#333333] border-t-[#E53935] rounded-full animate-spin"></div>
+                    </div>
                 ) : orders.length === 0 ? (
-                    <div className="w-full h-full flex justify-center items-center text-gray-500 text-lg">
+                    /* Theme Update 4: Empty state text opacity color */
+                    <div className="text-center text-[#FFFFFF]/50 mt-20 text-lg">
                         No orders found
                     </div>
                 ) : (
-                    <div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white">
-
+                    /* Theme Update 5: Table container background, border, and red shadow */
+                    <div
+                        className="
+                            rounded-2xl
+                            border
+                            border-[#E53935]/20
+                            bg-[#222222]
+                            overflow-hidden
+                            shadow-[0_0_20px_rgba(229,57,53,0.08)]
+                        "
+                    >
                         {/* ================= MODAL ================= */}
-
                         <Modal
                             isOpen={modalIsOpen}
                             onRequestClose={() => setIsModalOpen(false)}
                             contentLabel="Order Details"
-                            className="bg-white w-[95%] md:w-[850px] max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl p-6 outline-none relative"
-                            overlayClassName="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-[999]"
+                            /* Theme Updates: Modal wrapper background, borders, and text colors */
+                            className="bg-[#222222] border border-[#E53935]/20 text-[#FFFFFF] w-[95%] md:w-[850px] max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl p-6 outline-none relative"
+                            overlayClassName="fixed inset-0 bg-black/75 backdrop-blur-sm flex justify-center items-center z-[999]"
                         >
                             {activeOrder && (
                                 <div>
-
-                                    {/* Header */}
-                                    <div className="flex justify-between items-start border-b pb-4">
-
+                                    {/* Modal Header */}
+                                    <div className="flex justify-between items-start border-b border-[#222222] pb-4">
                                         <div>
-                                            <h2 className="text-2xl font-bold text-gray-800">
+                                            <h2 className="text-2xl font-bold text-[#E53935]">
                                                 Order Details
                                             </h2>
-
-                                            <p className="text-gray-500 mt-1">
+                                            <p className="text-[#FFFFFF]/60 mt-1">
                                                 Order ID :{" "}
-                                                <span className="font-semibold text-primary">
+                                                <span className="font-semibold text-[#FFFFFF]">
                                                     {activeOrder.orderId}
                                                 </span>
                                             </p>
@@ -114,278 +137,220 @@ export default function AdminOrdersPage() {
 
                                         <button
                                             onClick={() => setIsModalOpen(false)}
-                                            className="p-2 rounded-full hover:bg-gray-100 transition"
+                                            className="p-2 rounded-full text-[#FFFFFF]/60 hover:text-red-500 hover:bg-[#222222] transition"
                                         >
                                             <X size={24} />
                                         </button>
                                     </div>
 
-                                    {/* Top Info */}
+                                    {/* Top Info Cards */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
-
+                                        
                                         {/* Customer Info */}
-                                        <div className="border rounded-xl p-5 bg-gray-50">
-                                            <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                        <div className="border border-[#222222] rounded-xl p-5 bg-[#1A1A1A]">
+                                            <h3 className="font-bold text-lg mb-4 text-[#E53935] flex items-center gap-2">
                                                 <User size={20} />
                                                 Customer Information
                                             </h3>
 
-                                            <div className="space-y-3 text-sm">
-
+                                            <div className="space-y-3 text-sm text-[#FFFFFF]/80">
                                                 <div className="flex items-center gap-2">
-                                                    <User size={16} className="text-gray-500" />
+                                                    <User size={16} className="text-[#E53935]" />
                                                     <span>{activeOrder.name}</span>
                                                 </div>
-
                                                 <div className="flex items-center gap-2">
-                                                    <Mail size={16} className="text-gray-500" />
+                                                    <Mail size={16} className="text-[#E53935]" />
                                                     <span>{activeOrder.email}</span>
                                                 </div>
-
                                                 <div className="flex items-center gap-2">
-                                                    <Phone size={16} className="text-gray-500" />
+                                                    <Phone size={16} className="text-[#E53935]" />
                                                     <span>{activeOrder.phone}</span>
                                                 </div>
-
                                                 <div className="flex items-start gap-2">
-                                                    <MapPin
-                                                        size={16}
-                                                        className="text-gray-500 mt-1"
-                                                    />
+                                                    <MapPin size={16} className="text-[#E53935] mt-0.5" />
                                                     <span>{activeOrder.address}</span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         {/* Order Summary */}
-                                        <div className="border rounded-xl p-5 bg-gray-50">
-                                            <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                        <div className="border border-[#222222] rounded-xl p-5 bg-[#1A1A1A]">
+                                            <h3 className="font-bold text-lg mb-4 text-[#E53935] flex items-center gap-2">
                                                 <Package size={20} />
                                                 Order Summary
                                             </h3>
 
                                             <div className="space-y-4 text-sm">
-
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-gray-500 flex items-center gap-2">
+                                                    <span className="text-[#FFFFFF]/60 flex items-center gap-2">
                                                         <Calendar size={16} />
                                                         Order Date
                                                     </span>
-
-                                                    <span className="font-medium">
-                                                        {new Date(
-                                                            activeOrder.date
-                                                        ).toLocaleString()}
+                                                    <span className="font-medium text-[#FFFFFF]">
+                                                        {new Date(activeOrder.date).toLocaleString()}
                                                     </span>
                                                 </div>
 
-                                                <div className="flex justify-between items-center">
-                                                    <span className="text-gray-500">
-                                                        Status
-                                                    </span>
+                                                <div className="flex justify-between items-center gap-4">
+                                                    <span className="text-[#FFFFFF]/60">Status</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className={`px-3 py-1 rounded-full text-xs border font-semibold ${getStatusStyle(activeOrder.status)}`}>
+                                                            {activeOrder.status}
+                                                        </span>
+                                                        <select
+                                                            className="bg-[#1A1A1A] text-[#FFFFFF] border border-[#333333] rounded-lg p-1 text-xs outline-none focus:border-[#E53935]"
+                                                            defaultValue="default"
+                                                            onChange={async (e) => {
+                                                                const updateValue = e.target.value;
+                                                                try {
+                                                                    setIsLoading(true);
+                                                                    const token = localStorage.getItem("token");
 
-                                                    <span
-                                                        className={`px-3 py-1 rounded-full text-xs border font-semibold ${getStatusStyle(
-                                                            activeOrder.status
-                                                        )}`}
-                                                    >
-                                                        {activeOrder.status}
-                                                    </span>
-                                                    <select
-                                                        onChange={async (e) => {
-                                                            const updateValue = e.target.value;
-                                                            try {
-                                                                setIsLoading(true); // Start loading
-                                                                const token = localStorage.getItem("token");
+                                                                    await axios.put(
+                                                                        import.meta.env.VITE_BACKEND_URL + "/api/orders/" + activeOrder.orderId + "/" + updateValue,
+                                                                        {},
+                                                                        { headers: { Authorization: "Bearer " + token } }
+                                                                    );
 
-                                                                await axios.put(
-                                                                    import.meta.env.VITE_BACKEND_URL + "/api/orders/" + activeOrder.orderId + "/" + updateValue,
-                                                                    {},
-                                                                    {
-                                                                        headers: { Authorization: "Bearer " + token },
-                                                                    }
-                                                                );
+                                                                    const updatedOrder = { ...activeOrder, status: updateValue };
+                                                                    setActiveOrder(updatedOrder);
 
-                                                                // 1. Update the Modal View
-                                                                const updatedOrder = { ...activeOrder, status: updateValue };
-                                                                setActiveOrder(updatedOrder);
+                                                                    setOrders((prevOrders) =>
+                                                                        prevOrders.map((ord) =>
+                                                                            ord.orderId === activeOrder.orderId ? { ...ord, status: updateValue } : ord
+                                                                        )
+                                                                    );
 
-                                                                // 2. Update the background list so the table updates immediately
-                                                                setOrders((prevOrders) =>
-                                                                    prevOrders.map((ord) =>
-                                                                        ord.orderId === activeOrder.orderId ? { ...ord, status: updateValue } : ord
-                                                                    )
-                                                                );
-
-                                                                toast.success("Order status updated!");
-                                                            } catch (e) {
-                                                                toast.error("Error updating order status");
-                                                                console.error(e);
-                                                            } finally {
-                                                                setIsLoading(false); // STOP loading regardless of success or failure
-                                                            }
-                                                        }}
-                                                    >
-                                                        <option value="default" disabled>Change Status</option>
-                                                        <option value="pending">pending</option>
-                                                        <option value="completed">completed</option>
-                                                        <option value="canceled">canceled</option>
-                                                        <option value="returned">returned</option>
-                                                    </select>
+                                                                    toast.success("Order status updated!");
+                                                                } catch (e) {
+                                                                    toast.error("Error updating order status");
+                                                                    console.error(e);
+                                                                } finally {
+                                                                    setIsLoading(false);
+                                                                }
+                                                            }}
+                                                        >
+                                                            <option value="default" disabled>Change Status</option>
+                                                            <option value="pending">pending</option>
+                                                            <option value="completed">completed</option>
+                                                            <option value="canceled">canceled</option>
+                                                            <option value="returned">returned</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
 
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-gray-500">
-                                                        Labelled Total
-                                                    </span>
-
+                                                    <span className="text-[#FFFFFF]/60">Labelled Total</span>
                                                     <span className="line-through text-red-500 font-semibold">
-                                                        Rs.{" "}
-                                                        {activeOrder.labelledTotal?.toLocaleString()}
+                                                        Rs. {activeOrder.labelledTotal?.toLocaleString()}
                                                     </span>
                                                 </div>
 
-                                                <div className="flex justify-between items-center text-lg">
-                                                    <span className="font-semibold flex items-center gap-2">
+                                                <div className="flex justify-between items-center text-lg border-t border-[#222222] pt-3">
+                                                    <span className="font-semibold text-[#FFFFFF] flex items-center gap-2">
                                                         <BadgeDollarSign size={18} />
                                                         Final Total
                                                     </span>
-
-                                                    <span className="font-bold text-green-600">
-                                                        Rs.{" "}
-                                                        {activeOrder.total?.toLocaleString()}
+                                                    <span className="font-bold text-[#E53935]">
+                                                        Rs. {activeOrder.total?.toLocaleString()}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
 
-                                    {/* Products Section */}
+                                    {/* Products List Section */}
                                     <div className="mt-8">
-
-                                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                                            <ShoppingCart size={22} />
+                                        <h3 className="text-xl font-bold mb-4 text-[#FFFFFF] flex items-center gap-2">
+                                            <ShoppingCart size={22} className="text-[#E53935]" />
                                             Ordered Products
                                         </h3>
 
                                         <div className="space-y-4">
-
                                             {activeOrder.products?.map((item) => (
                                                 <div
                                                     key={item._id}
-                                                    className="border rounded-2xl p-4 flex flex-col md:flex-row gap-5 hover:shadow-md transition"
+                                                    className="border border-[#222222] bg-[#1A1A1A] rounded-2xl p-4 flex flex-col md:flex-row gap-5 hover:border-[#E53935]/30 transition"
                                                 >
-
                                                     {/* Product Image */}
                                                     <img
-                                                        src={
-                                                            item.productInfo.images?.[0]
-                                                        }
+                                                        src={item.productInfo.images?.[0]}
                                                         alt={item.productInfo.name}
-                                                        className="w-full md:w-[160px] h-[160px] object-cover rounded-xl border"
+                                                        /* Theme Update 9: Product image border color updated */
+                                                        className="w-full md:w-[160px] h-[160px] object-cover rounded-xl border border-[#444444]"
                                                     />
 
                                                     {/* Product Details */}
-                                                    <div className="flex-1">
+                                                    <div className="flex-1 flex flex-col justify-between">
+                                                        <div>
+                                                            <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3">
+                                                                <div>
+                                                                    <h4 className="text-xl font-bold text-[#FFFFFF]">
+                                                                        {item.productInfo.name}
+                                                                    </h4>
+                                                                    <p className="text-sm text-[#FFFFFF]/50 mt-1">
+                                                                        Product ID : {item.productInfo.productId}
+                                                                    </p>
+                                                                </div>
 
-                                                        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3">
-
-                                                            <div>
-                                                                <h4 className="text-xl font-bold text-gray-800">
-                                                                    {item.productInfo.name}
-                                                                </h4>
-
-                                                                <p className="text-sm text-gray-500 mt-1">
-                                                                    Product ID :{" "}
-                                                                    {
-                                                                        item.productInfo
-                                                                            .productId
-                                                                    }
-                                                                </p>
+                                                                <div className="text-left md:text-right">
+                                                                    <p className="text-sm text-[#FFFFFF]/50">Quantity</p>
+                                                                    <p className="font-bold text-lg text-[#E53935]">{item.quantity}</p>
+                                                                </div>
                                                             </div>
 
-                                                            <div className="text-right">
-                                                                <p className="text-sm text-gray-500">
-                                                                    Quantity
-                                                                </p>
-
-                                                                <p className="font-bold text-lg">
-                                                                    {item.quantity}
-                                                                </p>
-                                                            </div>
+                                                            <p className="text-[#FFFFFF]/70 mt-3 text-sm leading-relaxed">
+                                                                {item.productInfo.description}
+                                                            </p>
                                                         </div>
 
-                                                        <p className="text-gray-600 mt-4 text-sm leading-relaxed">
-                                                            {
-                                                                item.productInfo
-                                                                    .description
-                                                            }
-                                                        </p>
-
-                                                        {/* Alternative Names */}
-                                                        <div className="flex flex-wrap gap-2 mt-4">
-                                                            {item.productInfo.altNames?.map(
-                                                                (alt, index) => (
+                                                        {/* Alternative Tags & Pricing */}
+                                                        <div className="mt-4 flex flex-col gap-4">
+                                                            <div className="flex flex-wrap gap-2">
+                                                                {item.productInfo.altNames?.map((alt, idx) => (
                                                                     <span
-                                                                        key={index}
-                                                                        className="px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-700"
+                                                                        key={idx}
+                                                                        className="px-3 py-1 text-xs rounded-full bg-[#2A2A2A] text-[#FFFFFF]/70 border border-[#222222]"
                                                                     >
                                                                         {alt}
                                                                     </span>
-                                                                )
-                                                            )}
-                                                        </div>
-
-                                                        {/* Price Details */}
-                                                        <div className="mt-5 flex flex-col md:flex-row md:justify-between gap-3">
-
-                                                            <div>
-                                                                <p className="text-sm text-gray-500">
-                                                                    Original Price
-                                                                </p>
-
-                                                                <p className="line-through text-red-500 font-semibold">
-                                                                    Rs.{" "}
-                                                                    {item.productInfo.labelledPrice?.toLocaleString()}
-                                                                </p>
+                                                                ))}
                                                             </div>
 
-                                                            <div>
-                                                                <p className="text-sm text-gray-500">
-                                                                    Selling Price
-                                                                </p>
-
-                                                                <p className="text-green-600 font-bold text-lg">
-                                                                    Rs.{" "}
-                                                                    {item.productInfo.price?.toLocaleString()}
-                                                                </p>
-                                                            </div>
-
-                                                            <div>
-                                                                <p className="text-sm text-gray-500">
-                                                                    Sub Total
-                                                                </p>
-
-                                                                <p className="font-bold text-primary text-lg">
-                                                                    Rs.{" "}
-                                                                    {(
-                                                                        item.productInfo.price *
-                                                                        item.quantity
-                                                                    ).toLocaleString()}
-                                                                </p>
+                                                            <div className="flex flex-wrap items-center gap-6 border-t border-[#222222] pt-3">
+                                                                <div>
+                                                                    <p className="text-xs text-[#FFFFFF]/50">Original Price</p>
+                                                                    <p className="line-through text-red-500 font-semibold text-sm">
+                                                                        Rs. {item.productInfo.labelledPrice?.toLocaleString()}
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <p className="text-xs text-[#FFFFFF]/50">Selling Price</p>
+                                                                    <p className="text-[#E53935] font-bold text-sm">
+                                                                        Rs. {item.productInfo.price?.toLocaleString()}
+                                                                    </p>
+                                                                </div>
+                                                                <div className="ml-auto">
+                                                                    <p className="text-xs text-[#FFFFFF]/50 text-right">Sub Total</p>
+                                                                    <p className="font-bold text-[#E53935] text-lg">
+                                                                        Rs. {(item.productInfo.price * item.quantity).toLocaleString()}
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
 
-                                    {/* Footer */}
+                                    {/* Modal Actions Footer */}
                                     <div className="mt-8 flex justify-end">
                                         <button
                                             onClick={() => setIsModalOpen(false)}
-                                            className="px-6 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold transition"
+                                            className="px-6 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold transition"
                                         >
                                             Close
                                         </button>
@@ -394,10 +359,13 @@ export default function AdminOrdersPage() {
                             )}
                         </Modal>
 
-                        {/* ================= TABLE ================= */}
-
-                        <table className="w-full text-sm text-left">
-                            <thead className="bg-primary text-white sticky top-0 z-10">
+                        {/* ================= MAIN ORDERS TABLE ================= */}
+                        {/* Theme Update 7: Table base text color changed to white */}
+                        <table className="w-full text-sm text-left text-[#FFFFFF]">
+                            
+                            {/* Sticky Table Header */}
+                            {/* Theme Update 6: Sticky Header background, text color, and border updated */}
+                            <thead className="bg-[#1A1A1A] text-[#E53935] sticky top-0 z-10 border-b border-[#E53935]/20">
                                 <tr>
                                     <th className="p-4">Order ID</th>
                                     <th className="p-4">Customer</th>
@@ -413,44 +381,42 @@ export default function AdminOrdersPage() {
                                 {orders.map((order, index) => (
                                     <tr
                                         key={order._id || index}
-                                        className="border-b hover:bg-gray-50 transition cursor-pointer"
+                                        /* Theme Update 8: Row hover background color updated */
+                                        className="
+                                            border-b
+                                            border-[#222222]
+                                            hover:bg-[#2A2A2A]
+                                            transition
+                                            cursor-pointer
+                                        "
                                         onClick={() => {
                                             setActiveOrder(order);
                                             setIsModalOpen(true);
                                         }}
                                     >
-                                        <td className="p-4 font-semibold">
+                                        <td className="p-4 font-semibold text-[#FFFFFF]">
                                             {order.orderId}
                                         </td>
-
-                                        <td className="p-4">{order.name}</td>
-
-                                        <td className="p-4">{order.email}</td>
-
-                                        <td className="p-4">{order.phone}</td>
-
-                                        <td className="p-4 font-bold text-green-600">
+                                        <td className="p-4 text-[#FFFFFF]/90">{order.name}</td>
+                                        {/* Theme Update 10: Table layout metadata text/opacity colors updated */}
+                                        <td className="p-4 text-[#FFFFFF]/70">{order.email}</td>
+                                        <td className="p-4 text-[#FFFFFF]/70">{order.phone}</td>
+                                        {/* Theme Update 11: Main total text color updated */}
+                                        <td className="p-4 font-bold text-[#E53935]">
                                             Rs. {order.total?.toLocaleString()}
                                         </td>
-
-                                        <td className="p-4">
-                                            {new Date(
-                                                order.date
-                                            ).toLocaleDateString()}
+                                        <td className="p-4 text-[#FFFFFF]/80">
+                                            {new Date(order.date).toLocaleDateString()}
                                         </td>
-
                                         <td className="p-4 text-center">
-                                            <span
-                                                className={`px-3 py-1 rounded-full text-xs border font-semibold ${getStatusStyle(
-                                                    order.status
-                                                )}`}
-                                            >
+                                            <span className={`px-3 py-1 rounded-full text-xs border font-semibold ${getStatusStyle(order.status)}`}>
                                                 {order.status}
                                             </span>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
+
                         </table>
                     </div>
                 )}
