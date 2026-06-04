@@ -92,8 +92,8 @@ export default function LoginPage() {
                         shadow-[0_8px_32px_rgba(0,0,0,0.35)]
                     "
                 >
-                    {/* Heading */}
-                    <h1 className="mb-2 text-4xl font-bold text-[#08CB00]">
+                    {/* Heading - Changed from Green to Red (#E53935) */}
+                    <h1 className="mb-2 text-4xl font-bold text-[#E53935]">
                         Welcome Back
                     </h1>
 
@@ -121,9 +121,9 @@ export default function LoginPage() {
                             outline-none
                             transition-all
                             placeholder:text-[#EEEEEE]/40
-                            focus:border-[#08CB00]
+                            focus:border-[#E53935]
                             focus:ring-2
-                            focus:ring-[#08CB00]/30
+                            focus:ring-[#E53935]/30
                         "
                     />
 
@@ -147,13 +147,13 @@ export default function LoginPage() {
                             outline-none
                             transition-all
                             placeholder:text-[#EEEEEE]/40
-                            focus:border-[#08CB00]
+                            focus:border-[#E53935]
                             focus:ring-2
-                            focus:ring-[#08CB00]/30
+                            focus:ring-[#E53935]/30
                         "
                     />
 
-                    {/* Login Button */}
+                    {/* Login Button - Changed from Green to Red (#E53935) */}
                     <button
                         onClick={handleLogin}
                         className="
@@ -162,13 +162,13 @@ export default function LoginPage() {
                             h-[55px]
                             w-[320px]
                             rounded-[15px]
-                            bg-[#08CB00]
+                            bg-[#E53935]
                             font-bold
-                            text-black
+                            text-white
                             transition-all
                             duration-300
                             hover:scale-[1.02]
-                            hover:shadow-[0_0_25px_rgba(8,203,0,0.45)]
+                            hover:shadow-[0_0_25px_rgba(229,57,53,0.45)]
                         "
                     >
                         Login
@@ -183,7 +183,7 @@ export default function LoginPage() {
                         <div className="h-px flex-1 bg-white/10"></div>
                     </div>
 
-                    {/* Google Login */}
+                    {/* Google Login - Changed hover effects to Red (#E53935) */}
                     <button
                         onClick={googleLogin}
                         className="
@@ -201,9 +201,9 @@ export default function LoginPage() {
                             backdrop-blur-md
                             transition-all
                             duration-300
-                            hover:border-[#08CB00]
+                            hover:border-[#E53935]
                             hover:bg-white/10
-                            hover:shadow-[0_0_20px_rgba(8,203,0,0.15)]
+                            hover:shadow-[0_0_20px_rgba(229,57,53,0.15)]
                         "
                     >
                         <GrGoogle className="text-xl text-[#EEEEEE]" />
