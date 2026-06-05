@@ -59,8 +59,8 @@ export default function RegisterPage() {
                         shadow-[0_8px_32px_rgba(0,0,0,0.35)]
                     "
                 >
-                    {/* Heading */}
-                    <h1 className="mb-2 text-4xl font-bold text-[#08CB00]">
+                    {/* Heading - Changed to Red (#E53935) */}
+                    <h1 className="mb-2 text-4xl font-bold text-[#E53935]">
                         Create Account
                     </h1>
 
@@ -88,9 +88,9 @@ export default function RegisterPage() {
                             outline-none
                             transition-all
                             placeholder:text-[#EEEEEE]/40
-                            focus:border-[#08CB00]
+                            focus:border-[#E53935]
                             focus:ring-2
-                            focus:ring-[#08CB00]/30
+                            focus:ring-[#E53935]/30
                         "
                     />
 
@@ -114,9 +114,9 @@ export default function RegisterPage() {
                             outline-none
                             transition-all
                             placeholder:text-[#EEEEEE]/40
-                            focus:border-[#08CB00]
+                            focus:border-[#E53935]
                             focus:ring-2
-                            focus:ring-[#08CB00]/30
+                            focus:ring-[#E53935]/30
                         "
                     />
 
@@ -140,9 +140,9 @@ export default function RegisterPage() {
                             outline-none
                             transition-all
                             placeholder:text-[#EEEEEE]/40
-                            focus:border-[#08CB00]
+                            focus:border-[#E53935]
                             focus:ring-2
-                            focus:ring-[#08CB00]/30
+                            focus:ring-[#E53935]/30
                         "
                     />
 
@@ -166,13 +166,13 @@ export default function RegisterPage() {
                             outline-none
                             transition-all
                             placeholder:text-[#EEEEEE]/40
-                            focus:border-[#08CB00]
+                            focus:border-[#E53935]
                             focus:ring-2
-                            focus:ring-[#08CB00]/30
+                            focus:ring-[#E53935]/30
                         "
                     />
 
-                    {/* Register Button */}
+                    {/* Register Button - Changed to Red (#E53935) & text to white */}
                     <button
                         onClick={handleRegister}
                         className="
@@ -180,28 +180,28 @@ export default function RegisterPage() {
                             h-[55px]
                             w-[320px]
                             rounded-[15px]
-                            bg-[#08CB00]
+                            bg-[#E53935]
                             font-bold
-                            text-black
+                            text-white
                             transition-all
                             duration-300
                             hover:scale-[1.02]
-                            hover:shadow-[0_0_25px_rgba(8,203,0,0.45)]
+                            hover:shadow-[0_0_25px_rgba(229,57,53,0.45)]
                         "
                     >
                         Register
                     </button>
 
-                    {/* Login Link */}
+                    {/* Login Link - Changed link colors to Red variants */}
                     <p className="mt-6 text-sm text-[#EEEEEE]/70">
                         Already have an account?{" "}
                         <span
                             onClick={() => navigate("/login")}
                             className="
                                 cursor-pointer
-                                text-[#08CB00]
+                                text-[#E53935]
                                 transition-colors
-                                hover:text-[#0ef005]
+                                hover:text-[#ff4d4a]
                             "
                         >
                             Login
