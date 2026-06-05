@@ -45,9 +45,19 @@ export default function LandingPage() {
           className="absolute inset-0 w-full h-full object-cover opacity-60"
         />
         <div className="relative z-10 text-center text-white px-4 max-w-3xl">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 uppercase">
+          {/* Modern Styled Brand Name */}
+          <div className="mb-2">
+            <span className="text-sm font-black tracking-[0.3em] uppercase bg-gradient-to-r from-accent to-white bg-clip-text text-transparent">
+              Welcome To
+            </span>
+            <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase italic leading-none bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent drop-shadow-md">
+              Fit<span className="text-accent not-italic">Nova</span>
+            </h1>
+          </div>
+          
+          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4 uppercase text-gray-100">
             Unleash Your Potential
-          </h1>
+          </h2>
           <p className="text-lg md:text-xl mb-8 font-light text-gray-200">
             Premium gear for every athlete, backed by experts. Engineered for
             performance, built to last.
@@ -122,7 +132,7 @@ export default function LandingPage() {
       {/* 4. FEATURED PRODUCTS */}
       <section className="w-full bg-gray-100 py-16 px-4 flex justify-center">
         <div className="w-full max-w-7xl">
-          <h2 className="text-3xl text-secondary font-bold text-center mb-10 uppercase tracking-wide">
+          <h2 className="text-3xl text-primary font-bold text-center mb-10 uppercase tracking-wide">
             Best Sellers
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -177,7 +187,7 @@ export default function LandingPage() {
             Locally owned and operated since 2010. Our staff consists of active
             athletes who rigorously test every piece of gear we sell. We don't
             just sell products; we live the lifestyle. Whether you're hitting
-            the pavement, the gym, or the trails, we've got your back.
+            the pavement, the gym, or the trails, <strong>FitNova</strong> has got your back.
           </p>
         </div>
       </section>
@@ -286,7 +296,7 @@ export default function LandingPage() {
             <ul className="space-y-2 text-sm">
               <li>📍 123 Performance Way, Austin, TX</li>
               <li>📞 (512) 555-0199</li>
-              <li>✉️ support@yourbrand.com</li>
+              <li>✉️ support@fitnova.com</li>
             </ul>
           </div>
 
@@ -304,8 +314,7 @@ export default function LandingPage() {
         </div>
 
         <div className="w-full max-w-7xl border-t border-gray-900 pt-6 text-center text-xs text-gray-600">
-          &copy; {new Date().getFullYear()} Athletic Edge Store. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} FitNova Store. All rights reserved.
         </div>
       </footer>
     </div>
