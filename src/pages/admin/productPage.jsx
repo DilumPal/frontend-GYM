@@ -63,13 +63,13 @@ export default function AdminProductPage() {
     }
 
     return (
-        <div className="w-full h-full flex flex-col overflow-hidden relative bg-[#1A1A1A] text-white">
+        <div className="w-full h-full flex flex-col overflow-hidden relative bg-primary text-secondary">
             {/* Header */}
             <div className="px-6 pt-6 pb-4">
-                <h1 className="text-3xl font-bold text-[#E53935]">
+                <h1 className="text-3xl font-bold text-accent">
                     Product Management
                 </h1>
-                <p className="text-white/60 mt-1">
+                <p className="text-secondary/60 mt-1">
                     Manage all products in your store
                 </p>
             </div>
@@ -78,10 +78,10 @@ export default function AdminProductPage() {
             <div className="flex-1 overflow-y-auto px-6 pb-6">
                 {loading ? (
                     <div className="w-full h-full flex justify-center items-center">
-                        <div className="w-[60px] h-[60px] border-4 border-[#333333] border-t-[#E53935] rounded-full animate-spin"></div>
+                        <div className="w-[60px] h-[60px] border-4 border-secondary/10 border-t-accent rounded-full animate-spin"></div>
                     </div>
                 ) : products.length === 0 ? (
-                    <div className="text-center text-white/50 mt-20 text-lg">
+                    <div className="text-center text-secondary/50 mt-20 text-lg">
                         No products found
                     </div>
                 ) : (
@@ -89,14 +89,14 @@ export default function AdminProductPage() {
                         className="
                             rounded-2xl
                             border
-                            border-[#E53935]/20
-                            bg-[#222222]
+                            border-accent/20
+                            bg-secondary/[0.02]
                             overflow-hidden
                             shadow-[0_0_20px_rgba(229,57,53,0.08)]
                         "
                     >
-                        <table className="w-full text-sm text-left text-white">
-                            <thead className="bg-[#1A1A1A] text-[#E53935] sticky top-0 z-10 border-b border-[#E53935]/20">
+                        <table className="w-full text-sm text-left text-secondary">
+                            <thead className="bg-primary text-accent sticky top-0 z-10 border-b border-accent/20">
                                 <tr>
                                     <th className="p-4">ID</th>
                                     <th className="p-4">Product</th>
@@ -118,8 +118,8 @@ export default function AdminProductPage() {
                                         }
                                         className="
                                             border-b
-                                            border-[#333333]
-                                            hover:bg-[#2A2A2A]
+                                            border-secondary/10
+                                            hover:bg-secondary/[0.04]
                                             transition
                                         "
                                     >
@@ -144,28 +144,28 @@ export default function AdminProductPage() {
                                                     object-cover
                                                     rounded-lg
                                                     border
-                                                    border-[#444444]
+                                                    border-secondary/20
                                                 "
                                             />
                                         </td>
 
-                                        <td className="p-4 text-white/70">
+                                        <td className="p-4 text-secondary/70">
                                             Rs.{" "}
                                             {item.labelledPrice?.toLocaleString()}
                                         </td>
 
-                                        <td className="p-4 font-semibold text-[#E53935]">
+                                        <td className="p-4 font-semibold text-accent">
                                             Rs.{" "}
                                             {item.price?.toLocaleString()}
                                         </td>
 
                                         <td className="p-4">
                                             {item.stock > 0 ? (
-                                                <span className="text-[#E53935] font-semibold">
+                                                <span className="text-accent font-semibold">
                                                     {item.stock}
                                                 </span>
                                             ) : (
-                                                <span className="text-red-500 font-semibold">
+                                                <span className="text-accent/60 font-semibold line-through">
                                                     Out
                                                 </span>
                                             )}
@@ -183,8 +183,8 @@ export default function AdminProductPage() {
                                                         )
                                                     }
                                                     className="
-                                                        text-white
-                                                        hover:text-[#E53935]
+                                                        text-secondary
+                                                        hover:text-accent
                                                         hover:scale-110
                                                         transition
                                                     "
@@ -201,8 +201,8 @@ export default function AdminProductPage() {
                                                         )
                                                     }
                                                     className="
-                                                        text-red-500
-                                                        hover:text-red-400
+                                                        text-accent/70
+                                                        hover:text-accent
                                                         hover:scale-110
                                                         transition
                                                     "
@@ -231,8 +231,8 @@ export default function AdminProductPage() {
                     flex
                     items-center
                     gap-2
-                    bg-[#E53935]
-                    text-white
+                    bg-accent
+                    text-secondary
                     font-bold
                     px-6
                     py-3

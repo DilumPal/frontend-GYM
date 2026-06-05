@@ -52,23 +52,23 @@ export default function RegisterPage() {
                         justify-center
                         rounded-[24px]
                         border
-                        border-white/15
-                        bg-white/5
+                        border-secondary/15
+                        bg-secondary/5
                         px-8
                         backdrop-blur-2xl
                         shadow-[0_8px_32px_rgba(0,0,0,0.35)]
                     "
                 >
-                    {/* Heading - Changed to Red (#E53935) */}
-                    <h1 className="mb-2 text-4xl font-bold text-[#E53935]">
+                    {/* Heading - Swapped to Accent */}
+                    <h1 className="mb-2 text-4xl font-bold text-accent">
                         Create Account
                     </h1>
 
-                    <p className="mb-8 text-[#EEEEEE]/70">
+                    <p className="mb-8 text-secondary/70">
                         Register to get started
                     </p>
 
-                    {/* First Name */}
+                    {/* First Name Input */}
                     <input
                         type="text"
                         placeholder="First Name"
@@ -80,21 +80,21 @@ export default function RegisterPage() {
                             w-[320px]
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             px-4
-                            text-[#EEEEEE]
+                            text-secondary
                             backdrop-blur-md
                             outline-none
                             transition-all
-                            placeholder:text-[#EEEEEE]/40
-                            focus:border-[#E53935]
+                            placeholder:text-secondary/40
+                            focus:border-accent
                             focus:ring-2
-                            focus:ring-[#E53935]/30
+                            focus:ring-accent/30
                         "
                     />
 
-                    {/* Last Name */}
+                    {/* Last Name Input */}
                     <input
                         type="text"
                         placeholder="Last Name"
@@ -106,21 +106,21 @@ export default function RegisterPage() {
                             w-[320px]
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             px-4
-                            text-[#EEEEEE]
+                            text-secondary
                             backdrop-blur-md
                             outline-none
                             transition-all
-                            placeholder:text-[#EEEEEE]/40
-                            focus:border-[#E53935]
+                            placeholder:text-secondary/40
+                            focus:border-accent
                             focus:ring-2
-                            focus:ring-[#E53935]/30
+                            focus:ring-accent/30
                         "
                     />
 
-                    {/* Email */}
+                    {/* Email Input */}
                     <input
                         type="email"
                         placeholder="Email"
@@ -132,21 +132,21 @@ export default function RegisterPage() {
                             w-[320px]
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             px-4
-                            text-[#EEEEEE]
+                            text-secondary
                             backdrop-blur-md
                             outline-none
                             transition-all
-                            placeholder:text-[#EEEEEE]/40
-                            focus:border-[#E53935]
+                            placeholder:text-secondary/40
+                            focus:border-accent
                             focus:ring-2
-                            focus:ring-[#E53935]/30
+                            focus:ring-accent/30
                         "
                     />
 
-                    {/* Password */}
+                    {/* Password Input */}
                     <input
                         type="password"
                         placeholder="Password"
@@ -158,21 +158,21 @@ export default function RegisterPage() {
                             w-[320px]
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             px-4
-                            text-[#EEEEEE]
+                            text-secondary
                             backdrop-blur-md
                             outline-none
                             transition-all
-                            placeholder:text-[#EEEEEE]/40
-                            focus:border-[#E53935]
+                            placeholder:text-secondary/40
+                            focus:border-accent
                             focus:ring-2
-                            focus:ring-[#E53935]/30
+                            focus:ring-accent/30
                         "
                     />
 
-                    {/* Register Button - Changed to Red (#E53935) & text to white */}
+                    {/* Register Button - Swapped to Accent */}
                     <button
                         onClick={handleRegister}
                         className="
@@ -180,7 +180,7 @@ export default function RegisterPage() {
                             h-[55px]
                             w-[320px]
                             rounded-[15px]
-                            bg-[#E53935]
+                            bg-accent
                             font-bold
                             text-white
                             transition-all
@@ -192,16 +192,16 @@ export default function RegisterPage() {
                         Register
                     </button>
 
-                    {/* Login Link - Changed link colors to Red variants */}
-                    <p className="mt-6 text-sm text-[#EEEEEE]/70">
+                    {/* Login Link */}
+                    <p className="mt-6 text-sm text-secondary/70">
                         Already have an account?{" "}
                         <span
                             onClick={() => navigate("/login")}
                             className="
                                 cursor-pointer
-                                text-[#E53935]
+                                text-accent
                                 transition-colors
-                                hover:text-[#ff4d4a]
+                                hover:text-accent/80
                             "
                         >
                             Login

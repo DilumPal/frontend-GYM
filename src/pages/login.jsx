@@ -85,23 +85,23 @@ export default function LoginPage() {
                         justify-center
                         rounded-[24px]
                         border
-                        border-white/15
-                        bg-white/5
+                        border-secondary/15
+                        bg-secondary/5
                         px-8
                         backdrop-blur-2xl
                         shadow-[0_8px_32px_rgba(0,0,0,0.35)]
                     "
                 >
-                    {/* Heading - Changed from Green to Red (#E53935) */}
-                    <h1 className="mb-2 text-4xl font-bold text-[#E53935]">
+                    {/* Heading - Swapped to Accent */}
+                    <h1 className="mb-2 text-4xl font-bold text-accent">
                         Welcome Back
                     </h1>
 
-                    <p className="mb-10 text-[#EEEEEE]/70">
+                    <p className="mb-10 text-secondary/70">
                         Sign in to continue
                     </p>
 
-                    {/* Email */}
+                    {/* Email Input */}
                     <input
                         type="email"
                         placeholder="Email"
@@ -113,21 +113,21 @@ export default function LoginPage() {
                             w-[320px]
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             px-4
-                            text-[#EEEEEE]
+                            text-secondary
                             backdrop-blur-md
                             outline-none
                             transition-all
-                            placeholder:text-[#EEEEEE]/40
-                            focus:border-[#E53935]
+                            placeholder:text-secondary/40
+                            focus:border-accent
                             focus:ring-2
-                            focus:ring-[#E53935]/30
+                            focus:ring-accent/30
                         "
                     />
 
-                    {/* Password */}
+                    {/* Password Input */}
                     <input
                         type="password"
                         placeholder="Password"
@@ -139,21 +139,21 @@ export default function LoginPage() {
                             w-[320px]
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             px-4
-                            text-[#EEEEEE]
+                            text-secondary
                             backdrop-blur-md
                             outline-none
                             transition-all
-                            placeholder:text-[#EEEEEE]/40
-                            focus:border-[#E53935]
+                            placeholder:text-secondary/40
+                            focus:border-accent
                             focus:ring-2
-                            focus:ring-[#E53935]/30
+                            focus:ring-accent/30
                         "
                     />
 
-                    {/* Login Button - Changed from Green to Red (#E53935) */}
+                    {/* Login Button - Swapped to Accent */}
                     <button
                         onClick={handleLogin}
                         className="
@@ -162,7 +162,7 @@ export default function LoginPage() {
                             h-[55px]
                             w-[320px]
                             rounded-[15px]
-                            bg-[#E53935]
+                            bg-accent
                             font-bold
                             text-white
                             transition-all
@@ -176,14 +176,14 @@ export default function LoginPage() {
 
                     {/* Divider */}
                     <div className="my-5 flex w-[320px] items-center">
-                        <div className="h-px flex-1 bg-white/10"></div>
-                        <span className="px-3 text-sm text-[#EEEEEE]/50">
+                        <div className="h-px flex-1 bg-secondary/10"></div>
+                        <span className="px-3 text-sm text-secondary/50">
                             OR
                         </span>
-                        <div className="h-px flex-1 bg-white/10"></div>
+                        <div className="h-px flex-1 bg-secondary/10"></div>
                     </div>
 
-                    {/* Google Login - Changed hover effects to Red (#E53935) */}
+                    {/* Google Login Button - Handles hover/ring states with theme color */}
                     <button
                         onClick={googleLogin}
                         className="
@@ -196,19 +196,19 @@ export default function LoginPage() {
                             gap-3
                             rounded-[15px]
                             border
-                            border-white/10
-                            bg-white/5
+                            border-secondary/10
+                            bg-secondary/5
                             backdrop-blur-md
                             transition-all
                             duration-300
-                            hover:border-[#E53935]
-                            hover:bg-white/10
+                            hover:border-accent
+                            hover:bg-secondary/10
                             hover:shadow-[0_0_20px_rgba(229,57,53,0.15)]
                         "
                     >
-                        <GrGoogle className="text-xl text-[#EEEEEE]" />
+                        <GrGoogle className="text-xl text-secondary" />
 
-                        <span className="font-semibold text-[#EEEEEE]">
+                        <span className="font-semibold text-secondary">
                             Continue with Google
                         </span>
                     </button>
