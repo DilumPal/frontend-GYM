@@ -9,9 +9,10 @@ export default function SearchProductPage() {
     const [query, setQuery] = useState("");
 
     return (
-        <div className="w-full min-h-screen bg-black text-[#EEEEEE] flex flex-col items-center p-8 gap-6">
+        <div className="w-full min-h-screen bg-[#1A1A1A] text-[#EEEEEE] flex flex-col items-center p-8 gap-6">
 
-            <h1 className="text-3xl font-bold text-[#08CB00]">
+            {/* Title - Changed from Green to Red (#E53935) */}
+            <h1 className="text-3xl font-bold text-[#E53935]">
                 Search Products
             </h1>
 
@@ -63,9 +64,9 @@ export default function SearchProductPage() {
                         text-[#EEEEEE]
                         placeholder:text-gray-500
                         focus:outline-none
-                        focus:border-[#08CB00]
+                        focus:border-[#E53935]
                         focus:ring-2
-                        focus:ring-[#08CB00]/30
+                        focus:ring-[#E53935]/30
                         transition-all
                     "
                 />
@@ -80,8 +81,9 @@ export default function SearchProductPage() {
                     </div>
                 ) : isLoading ? (
                     <div className="flex flex-col items-center gap-3 mt-10">
-                        <div className="w-10 h-10 border-4 border-[#333333] border-t-[#08CB00] rounded-full animate-spin"></div>
-                        <p className="text-[#08CB00]">Searching...</p>
+                        {/* Spinner - Changed accent border from Green to Red (#E53935) */}
+                        <div className="w-10 h-10 border-4 border-[#333333] border-t-[#E53935] rounded-full animate-spin"></div>
+                        <p className="text-[#E53935]">Searching...</p>
                     </div>
                 ) : products.length > 0 ? (
                     products.map((product) => (
