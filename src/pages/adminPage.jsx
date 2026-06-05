@@ -1,9 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import AdminDashboardOverview from "./admin/dashboardOverview";
 import AdminProductPage from "./admin/productPage";
 import AddProductPage from "./admin/addProduct";
 import EditProductPage from "./admin/editProductPage";
 import AdminOrdersPage from "./admin/adminOrdersPage";
+import AdminUsersPage from "./admin/adminUsersPage";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -108,11 +110,13 @@ export default function AdminPage() {
 
                 {/* Main Dynamic Content Display Panel */}
                 <div className="h-full w-[calc(100%-280px)] p-5 bg-[#1A1A1A]">
-                    <div className="h-full w-full bg-white text-[#1A1A1A] rounded-2xl flex flex-col overflow-y-auto shadow-inner border border-white/5">
+                    <div className="h-full w-full bg-primary text-white rounded-2xl flex flex-col overflow-y-auto shadow-inner border border-white/5">
                         <Routes path="/*">
+                            <Route path="/" element={<AdminDashboardOverview />} /> 
+                            <Route path="/dashboard" element={<AdminDashboardOverview />} />
                             <Route path="/products" element={<AdminProductPage />} />
                             <Route path="/orders" element={<AdminOrdersPage />} />
-                            <Route path="/users" element={<h1 className="p-6 text-2xl font-bold">Users Management</h1>} />
+                            <Route path="/users" element={<AdminUsersPage />} />
                             <Route path="/add-product" element={<AddProductPage />} />
                             <Route path="/edit-product" element={<EditProductPage />} />
                         </Routes>
