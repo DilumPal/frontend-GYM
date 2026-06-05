@@ -7,7 +7,7 @@ export default function Header() {
     const [sideDrawerOpened, setSideDrawerOpened] = useState(false);
 
     return (
-        <header className="w-full h-[80px] bg-[#1A1A1A] border-b border-[#E53935]/30 shadow-[0_2px_15px_rgba(229,57,53,0.15)] flex justify-center items-center relative">
+        <header className="sticky top-0 z-40 w-full h-[80px] bg-[#1A1A1A] border-b border-[#E53935]/30 shadow-[0_2px_15px_rgba(229,57,53,0.15)] flex justify-center items-center">
 
             {/* Mobile Menu Button */}
             <GiHamburgerMenu
