@@ -78,15 +78,15 @@ export default function ProductOverview() {
                             {product.labelledPrice > product.price ? (
                                 <div className="flex items-center justify-center my-4">
                                     <span className="text-3xl mx-4 text-secondary/40 line-through">
-                                        ${product.labelledPrice.toFixed(2)}
+                                        Rs {product.labelledPrice.toFixed(2)}
                                     </span>
                                     <span className="text-4xl mx-4 font-bold text-accent">
-                                        ${product.price.toFixed(2)}
+                                        Rs {product.price.toFixed(2)}
                                     </span>
                                 </div>
                             ) : (
                                 <span className="text-4xl my-4 font-bold text-accent">
-                                    ${product.price.toFixed(2)}
+                                    Rs {product.price.toFixed(2)}
                                 </span>
                             )}
 

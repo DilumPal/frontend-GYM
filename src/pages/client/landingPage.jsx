@@ -54,7 +54,7 @@ export default function LandingPage() {
               Fit<span className="text-accent not-italic">Nova</span>
             </h1>
           </div>
-          
+
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4 uppercase text-gray-100">
             Unleash Your Potential
           </h2>
@@ -181,14 +181,25 @@ export default function LandingPage() {
 
       {/* 5. BRAND STORY */}
       <section className="w-full max-w-5xl py-20 px-4 text-center">
-        <div className="bg-accent border border-accent rounded-2xl p-8 md:p-12 shadow-sm">
-          <h2 className="text-3xl font-bold mb-4 text-accent">Our Story</h2>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
-            Locally owned and operated since 2010. Our staff consists of active
-            athletes who rigorously test every piece of gear we sell. We don't
-            just sell products; we live the lifestyle. Whether you're hitting
-            the pavement, the gym, or the trails, <strong>FitNova</strong> has got your back.
-          </p>
+        <div className="relative rounded-2xl">
+          {/* Neon Border Glow */}
+          <div className="absolute inset-0 rounded-2xl border-2 border-accent blur-[6px] opacity-100"></div>
+
+          {/* Main Card */}
+          <div className="relative bg-primary border-2 border-accent rounded-2xl p-8 md:p-12">
+            <h2 className="text-3xl font-bold mb-4 text-secondary uppercase tracking-wide">
+              Our Story
+            </h2>
+
+            <p className="text-lg text-secondary leading-relaxed max-w-3xl mx-auto">
+              Locally owned and operated since 2010. Our staff consists of
+              active athletes who rigorously test every piece of gear we sell.
+              We don't just sell products; we live the lifestyle. Whether you're
+              hitting the pavement, the gym, or the trails,
+              <strong className="text-accent"> FitNova</strong> has got your
+              back.
+            </p>
+          </div>
         </div>
       </section>
 
