@@ -84,33 +84,34 @@ export default function LandingPage() {
         <h2 className="text-3xl text-secondary font-bold text-center mb-10 uppercase tracking-wide">
           Shop by Category
         </h2>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
               title: "Cardio Equipment",
               icon: (
-                <BiCycling className="text-5xl text-accent group-hover:scale-110 transition duration-300 mb-4" />
+                <BiCycling className="text-5xl text-red-500 group-hover:scale-110 transition duration-300 mb-4" />
               ),
               path: "/products?category=cardio",
             },
             {
               title: "Strength Training Equipment",
               icon: (
-                <BiDumbbell className="text-5xl text-accent group-hover:scale-110 transition duration-300 mb-4" />
+                <BiDumbbell className="text-5xl text-red-500 group-hover:scale-110 transition duration-300 mb-4" />
               ),
               path: "/products?category=strength",
             },
             {
               title: "Functional Training Equipment",
               icon: (
-                <BiTrendingUp className="text-5xl text-accent group-hover:scale-110 transition duration-300 mb-4" />
+                <BiTrendingUp className="text-5xl text-red-500 group-hover:scale-110 transition duration-300 mb-4" />
               ),
               path: "/products?category=functional",
             },
             {
               title: "Bodyweight & Flexibility Equipment",
               icon: (
-                <BiBody className="text-5xl text-accent group-hover:scale-110 transition duration-300 mb-4" />
+                <BiBody className="text-5xl text-red-500 group-hover:scale-110 transition duration-300 mb-4" />
               ),
               path: "/products?category=flexibility",
             },
@@ -118,12 +119,18 @@ export default function LandingPage() {
             <Link
               to={cat.path}
               key={idx}
-              className="flex flex-col items-center justify-center p-8 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition duration-300 text-center group"
+              className="relative group block h-full"
             >
-              {cat.icon}
-              <span className="font-semibold text-lg text-gray-800 group-hover:text-accent transition duration-300">
-                {cat.title}
-              </span>
+              {/* Neon Glow Border (Changed border-accent to border-red-500) */}
+              <div className="absolute inset-0 rounded-xl border-2 border-red-500/80 blur-[4px] opacity-80 group-hover:opacity-100 transition duration-300"></div>
+
+              {/* Card (Changed bg-primary to bg-neutral-900, text-secondary to text-white, and added min-h-[220px]) */}
+              <div className="relative flex flex-col items-center justify-center min-h-[220px] p-6 bg-neutral-900 border-2 border-red-500/40 rounded-xl transition-all duration-300 group-hover:-translate-y-2 h-full z-10">
+                {cat.icon}
+                <span className="font-semibold text-base text-white text-center group-hover:text-red-400 transition duration-300 px-2">
+                  {cat.title}
+                </span>
+              </div>
             </Link>
           ))}
         </div>
