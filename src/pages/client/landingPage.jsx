@@ -1,39 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; 
 import { Link } from "react-router-dom";
 import { BiCycling, BiDumbbell, BiBody, BiTrendingUp } from "react-icons/bi";
+import axios from "axios"; 
 
 export default function LandingPage() {
-  // Mock data for Featured Products
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Apex Pro Running Shoes",
-      price: "$149.99",
-      rating: "⭐⭐⭐⭐⭐",
-      img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60",
-    },
-    {
-      id: 2,
-      name: "Elite Performance Tee",
-      price: "$39.99",
-      rating: "⭐⭐⭐⭐☆",
-      img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60",
-    },
-    {
-      id: 3,
-      name: "Adjustable Smart Dumbbells",
-      price: "$299.99",
-      rating: "⭐⭐⭐⭐⭐",
-      img: "https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=500&auto=format&fit=crop&q=60",
-    },
-    {
-      id: 4,
-      name: "Ultralight 2-Person Tent",
-      price: "$189.99",
-      rating: "⭐⭐⭐⭐☆",
-      img: "https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=500&auto=format&fit=crop&q=60",
-    },
-  ];
+  // 1. Dynamic state management to replace the old mock data array
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 2. Fetch the dynamically calculated best sellers from your Express route on mount
+  useEffect(() => {
+    axios
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/orders/best-sellers")
+      .then((res) => {
+        setFeaturedProducts(res.data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch best sellers:", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center text-gray-800">
@@ -121,10 +109,10 @@ export default function LandingPage() {
               key={idx}
               className="relative group block h-full"
             >
-              {/* Neon Glow Border (Changed border-accent to border-red-500) */}
+              {/* Neon Glow Border */}
               <div className="absolute inset-0 rounded-xl border-2 border-red-500/80 blur-[4px] opacity-80 group-hover:opacity-100 transition duration-300"></div>
 
-              {/* Card (Changed bg-primary to bg-neutral-900, text-secondary to text-white, and added min-h-[220px]) */}
+              {/* Card */}
               <div className="relative flex flex-col items-center justify-center min-h-[220px] p-6 bg-neutral-900 border-2 border-red-500/40 rounded-xl transition-all duration-300 group-hover:-translate-y-2 h-full z-10">
                 {cat.icon}
                 <span className="font-semibold text-base text-white text-center group-hover:text-red-400 transition duration-300 px-2">
@@ -136,53 +124,65 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 4. FEATURED PRODUCTS */}
+      {/* 4. FEATURED PRODUCTS (DYNAMIC BEST SELLERS) */}
       <section className="w-full bg-gray-100 py-16 px-4 flex justify-center">
         <div className="w-full max-w-7xl">
           <h2 className="text-3xl text-primary font-bold text-center mb-10 uppercase tracking-wide">
             Best Sellers
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition duration-300 relative group flex flex-col"
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <img
-                    src={product.img}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                  />
-                  {/* Hover Action Button */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <Link
-                      to={`/overview/${product.id}`}
-                      className="bg-white text-gray-900 font-semibold py-2 px-4 rounded shadow-md hover:bg-gray-100 transition"
-                    >
-                      Quick View
-                    </Link>
+
+          {/* Conditional layout for network delays/empty state states */}
+          {isLoading ? (
+            <div className="w-full flex justify-center items-center py-20">
+              <div className="w-12 h-12 border-4 border-gray-300 border-t-accent rounded-full animate-spin"></div>
+            </div>
+          ) : featuredProducts.length === 0 ? (
+            <div className="text-center text-gray-500 py-12 text-lg">
+              No sales recorded to generate best sellers yet.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {featuredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition duration-300 relative group flex flex-col"
+                >
+                  <div className="h-64 overflow-hidden relative">
+                    <img
+                      src={product.img}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    />
+                    {/* Hover Action Button */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                      <Link
+                        to={`/overview/${product.id}`}
+                        className="bg-white text-gray-900 font-semibold py-2 px-4 rounded shadow-md hover:bg-gray-100 transition"
+                      >
+                        Quick View
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="p-4 flex flex-col flex-grow">
-                  <span className="text-sm text-yellow-500 mb-1">
-                    {product.rating}
-                  </span>
-                  <h3 className="font-bold text-lg mb-2 line-clamp-1">
-                    {product.name}
-                  </h3>
-                  <div className="flex justify-between items-center mt-auto">
-                    <span className="text-xl font-extrabold text-gray-900">
-                      {product.price}
+                  <div className="p-4 flex flex-col flex-grow">
+                    <span className="text-sm text-yellow-500 mb-1">
+                      {product.rating}
                     </span>
-                    <button className="text-sm bg-gray-900 text-white py-1.5 px-3 rounded hover:bg-accent transition">
-                      Add to Cart
-                    </button>
+                    <h3 className="font-bold text-lg mb-2 line-clamp-1">
+                      {product.name}
+                    </h3>
+                    <div className="flex justify-between items-center mt-auto">
+                      <span className="text-xl font-extrabold text-gray-900">
+                        {product.price}
+                      </span>
+                      <button className="text-sm bg-gray-900 text-white py-1.5 px-3 rounded hover:bg-accent transition">
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
