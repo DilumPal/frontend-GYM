@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BiCycling, BiDumbbell, BiBody, BiTrendingUp } from "react-icons/bi";
-import axios from "axios"; 
+import axios from "axios";
 
 export default function LandingPage() {
   // 1. Dynamic state management to replace the old mock data array
@@ -125,19 +125,24 @@ export default function LandingPage() {
       </section>
 
       {/* 4. FEATURED PRODUCTS (DYNAMIC BEST SELLERS) */}
-      <section className="w-full bg-gray-100 py-16 px-4 flex justify-center">
+      <section className="w-full bg-[#1A1A1A] py-20 px-4 flex justify-center selection:bg-[#E53935] selection:text-white">
         <div className="w-full max-w-7xl">
-          <h2 className="text-3xl text-primary font-bold text-center mb-10 uppercase tracking-wide">
-            Best Sellers
-          </h2>
+          {/* Modern Section Header with Accent Bar */}
+          <div className="flex flex-col items-center mb-12">
+            <h2 className="text-3xl text-white font-extrabold text-center uppercase tracking-wider">
+              Best Sellers
+            </h2>
+            <div className="w-16 h-1 bg-[#E53935] mt-3 rounded-full"></div>
+          </div>
 
-          {/* Conditional layout for network delays/empty state states */}
+          {/* Conditional layout for network delays/empty states */}
           {isLoading ? (
             <div className="w-full flex justify-center items-center py-20">
-              <div className="w-12 h-12 border-4 border-gray-300 border-t-accent rounded-full animate-spin"></div>
+              {/* Spinner styled with accent color */}
+              <div className="w-12 h-12 border-4 border-white/10 border-t-[#E53935] rounded-full animate-spin"></div>
             </div>
           ) : featuredProducts.length === 0 ? (
-            <div className="text-center text-gray-500 py-12 text-lg">
+            <div className="text-center text-gray-400 py-16 text-lg tracking-wide bg-white/5 rounded-xl border border-white/10">
               No sales recorded to generate best sellers yet.
             </div>
           ) : (
@@ -145,36 +150,45 @@ export default function LandingPage() {
               {featuredProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition duration-300 relative group flex flex-col"
+                  className="bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 relative group flex flex-col border border-gray-100"
                 >
-                  <div className="h-64 overflow-hidden relative">
+                  {/* Image Container with Subtle Zoom */}
+                  <div className="h-72 overflow-hidden relative bg-gray-50">
                     <img
                       src={product.img}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    {/* Hover Action Button */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+
+                    {/* Premium Hover Overlay & Quick View */}
+                    <div className="absolute inset-0 bg-[#1A1A1A]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
                       <Link
                         to={`/overview/${product.id}`}
-                        className="bg-white text-gray-900 font-semibold py-2 px-4 rounded shadow-md hover:bg-gray-100 transition"
+                        className="bg-white text-[#1A1A1A] text-sm font-bold tracking-wide py-2.5 px-5 rounded-md shadow-lg hover:bg-[#E53935] hover:text-white transition-all duration-200 transform scale-95 group-hover:scale-100"
                       >
                         Quick View
                       </Link>
                     </div>
+
+                    {/* Optional: 'Hot' Badge using accent color */}
+                    <div className="absolute top-3 left-3 bg-[#E53935] text-white text-xs font-bold px-2.5 py-1 rounded shadow-sm uppercase tracking-wider">
+                      Top
+                    </div>
                   </div>
-                  <div className="p-4 flex flex-col flex-grow">
-                    <span className="text-sm text-yellow-500 mb-1">
-                      {product.rating}
-                    </span>
-                    <h3 className="font-bold text-lg mb-2 line-clamp-1">
+
+                  {/* Content Details */}
+                  <div className="p-5 flex flex-col flex-grow bg-white">
+                    <h3 className="font-bold text-[#1A1A1A] text-lg mb-3 line-clamp-1 group-hover:text-[#E53935] transition-colors duration-200">
                       {product.name}
                     </h3>
-                    <div className="flex justify-between items-center mt-auto">
-                      <span className="text-xl font-extrabold text-gray-900">
+
+                    {/* Price & Action Container */}
+                    <div className="flex justify-between items-center mt-auto pt-2 border-t border-gray-50">
+                      <span className="text-xl font-black text-[#1A1A1A]">
                         {product.price}
                       </span>
-                      <button className="text-sm bg-gray-900 text-white py-1.5 px-3 rounded hover:bg-accent transition">
+
+                      <button className="text-xs uppercase tracking-wider bg-[#1A1A1A] text-white font-bold py-2.5 px-4 rounded-md hover:bg-[#E53935] transition-colors duration-300 shadow-sm active:scale-95 transform">
                         Add to Cart
                       </button>
                     </div>
