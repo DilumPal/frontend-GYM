@@ -4,19 +4,25 @@ import { BiCycling, BiDumbbell, BiBody, BiTrendingUp } from "react-icons/bi";
 import axios from "axios";
 
 export default function LandingPage() {
-  // 1. Dynamic state management to replace the old mock data array
+  // Dynamic state management to replace the old mock data arrays
   const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [testimonials, setTestimonials] = useState([]); // Stores the 3 newest live reviews
   const [isLoading, setIsLoading] = useState(true);
 
-  // 2. Fetch the dynamically calculated best sellers from your Express route on mount
+  // Fetch the dynamically calculated best sellers and recent reviews on mount
   useEffect(() => {
-    axios
-      .get(import.meta.env.VITE_BACKEND_URL + "/api/orders/best-sellers")
-      .then((res) => {
-        setFeaturedProducts(res.data);
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+    Promise.all([
+      axios.get(`${backendUrl}/api/orders/best-sellers`),
+      axios.get(`${backendUrl}/api/reviews/testimonials`)
+    ])
+      .then(([productsRes, testimonialsRes]) => {
+        setFeaturedProducts(productsRes.data);
+        setTestimonials(testimonialsRes.data);
       })
       .catch((err) => {
-        console.error("Failed to fetch best sellers:", err);
+        console.error("Failed to sync landing page data:", err);
       })
       .finally(() => {
         setIsLoading(false);
@@ -149,7 +155,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {featuredProducts.map((product) => (
                 <div
-                  key={product.id}
+                  key={product._id}
                   className="bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 relative group flex flex-col border border-gray-100"
                 >
                   {/* Image Container with Subtle Zoom */}
@@ -163,7 +169,7 @@ export default function LandingPage() {
                     {/* Premium Hover Overlay & Quick View */}
                     <div className="absolute inset-0 bg-[#1A1A1A]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
                       <Link
-                        to={`/overview/${product.id}`}
+                        to={`/overview/${product._id}`}
                         className="bg-white text-[#1A1A1A] text-sm font-bold tracking-wide py-2.5 px-5 rounded-md shadow-lg hover:bg-[#E53935] hover:text-white transition-all duration-200 transform scale-95 group-hover:scale-100"
                       >
                         Quick View
@@ -224,43 +230,53 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 6. TESTIMONIALS */}
+      {/* 6. TESTIMONIALS (DYNAMIC RECENT REVIEWS) */}
       <section className="w-full bg-gray-900 text-white py-16 px-4 flex justify-center">
         <div className="w-full max-w-7xl text-center">
-          <h2 className="text-3xl font-bold mb-10 uppercase tracking-wide text-accent">
-            What Our Community Says
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah M.",
-                quote:
-                  "The Apex shoes cut 2 minutes off my 5K time. Incredible customer service too!",
-                role: "Marathon Runner",
-              },
-              {
-                name: "David K.",
-                quote:
-                  "Top tier gym equipment. Best investment I've made for my garage setup.",
-                role: "Powerlifter",
-              },
-              {
-                name: "Jessica T.",
-                quote:
-                  "The outdoor gear stood up to a full weekend of heavy rainfall perfectly.",
-                role: "Backpacker",
-              },
-            ].map((test, idx) => (
-              <div
-                key={idx}
-                className="bg-gray-800 p-6 rounded-lg text-left border border-gray-700"
-              >
-                <p className="italic text-gray-300 mb-4">"{test.quote}"</p>
-                <h4 className="font-bold text-accent">{test.name}</h4>
-                <span className="text-xs text-gray-400">{test.role}</span>
-              </div>
-            ))}
+          <div className="flex flex-col items-center mb-10">
+            <h2 className="text-3xl font-bold uppercase tracking-wide text-accent">
+              What Our Community Says
+            </h2>
+            <div className="w-12 h-1 bg-accent mt-3 rounded-full"></div>
           </div>
+          
+          {testimonials.length === 0 ? (
+            <p className="text-gray-400 italic">
+              No community feedback submitted yet. Be the first to review your gym gear!
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((test) => (
+                <div
+                  key={test._id}
+                  className="bg-neutral-900/80 backdrop-blur-sm p-6 rounded-xl text-left border-2 border-accent/20 hover:border-accent/40 transition duration-300 flex flex-col justify-between shadow-xl"
+                >
+                  <div>
+                    {/* Render visual star rating block */}
+                    <div className="text-amber-400 mb-3 text-lg select-none">
+                      {"★".repeat(test.rating)}
+                      {"☆".repeat(5 - test.rating)}
+                    </div>
+                    <p className="italic text-gray-300 text-sm leading-relaxed mb-4">
+                      "{test.comment}"
+                    </p>
+                  </div>
+                  
+                  {/* Review Metadata Container */}
+                  <div className="mt-4 pt-3 border-t border-gray-800">
+                    <h4 className="font-bold text-accent text-sm">
+                      {test.reviewerName}
+                    </h4>
+                    {test.product && (
+                      <span className="text-xs text-gray-400 block mt-0.5 tracking-wide">
+                        Verified Buyer of: <span className="text-gray-300 font-medium">{test.product.name}</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
