@@ -55,11 +55,19 @@ export default function ProductOverview() {
         if (!comment.trim()) return toast.error("Please add a comment");
 
         setIsSubmitting(true);
+
+        const token = localStorage.getItem("token");
+
         axios
             .post(
                 import.meta.env.VITE_BACKEND_URL + "/api/reviews",
                 { productId: productID, rating, comment },
-                { withCredentials: true } // Keeps cookie/token handling intact if needed
+                {
+                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                } // Keeps cookie/token handling intact if needed
             )
             .then(() => {
                 toast.success("Review submitted successfully!");
