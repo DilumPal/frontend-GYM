@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState, useEffect } from "react";
+import { clearCart } from "../utils/cart";
 
 export default function Header() {
   const [sideDrawerOpened, setSideDrawerOpened] = useState(false);
@@ -18,6 +19,7 @@ export default function Header() {
   // Handle logging out
   const handleLogout = () => {
     localStorage.removeItem("token");
+    clearCart();
     setIsLoggedIn(false);
     navigate("/login");
   };
