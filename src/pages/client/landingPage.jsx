@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BiCycling, BiDumbbell, BiBody, BiTrendingUp } from "react-icons/bi";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import axios from "axios";
 
 export default function LandingPage() {
@@ -15,7 +16,7 @@ export default function LandingPage() {
 
     Promise.all([
       axios.get(`${backendUrl}/api/orders/best-sellers`),
-      axios.get(`${backendUrl}/api/reviews/testimonials`)
+      axios.get(`${backendUrl}/api/reviews/testimonials`),
     ])
       .then(([productsRes, testimonialsRes]) => {
         setFeaturedProducts(productsRes.data);
@@ -239,10 +240,11 @@ export default function LandingPage() {
             </h2>
             <div className="w-12 h-1 bg-accent mt-3 rounded-full"></div>
           </div>
-          
+
           {testimonials.length === 0 ? (
             <p className="text-gray-400 italic">
-              No community feedback submitted yet. Be the first to review your gym gear!
+              No community feedback submitted yet. Be the first to review your
+              gym gear!
             </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -261,7 +263,7 @@ export default function LandingPage() {
                       "{test.comment}"
                     </p>
                   </div>
-                  
+
                   {/* Review Metadata Container */}
                   <div className="mt-4 pt-3 border-t border-gray-800">
                     <h4 className="font-bold text-accent text-sm">
@@ -269,7 +271,10 @@ export default function LandingPage() {
                     </h4>
                     {test.product && (
                       <span className="text-xs text-gray-400 block mt-0.5 tracking-wide">
-                        Verified Buyer of: <span className="text-gray-300 font-medium">{test.product.name}</span>
+                        Verified Buyer of:{" "}
+                        <span className="text-gray-300 font-medium">
+                          {test.product.name}
+                        </span>
                       </span>
                     )}
                   </div>
@@ -282,85 +287,75 @@ export default function LandingPage() {
 
       {/* 7. FOOTER */}
       <footer className="w-full bg-gray-950 text-gray-400 pt-16 pb-8 px-4 flex flex-col items-center border-t border-gray-800">
-        <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          {/* Newsletter Sign-up */}
-          <div className="md:col-span-1">
-            <h3 className="text-white font-bold text-lg mb-4 uppercase tracking-wider">
-              Join Our Crew
-            </h3>
-            <p className="text-sm mb-4">
-              Subscribe to get training tips, product drops, and 10% off your
-              first order.
-            </p>
-            <form className="flex flex-col gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="p-2.5 rounded bg-gray-900 border border-gray-700 text-white focus:outline-none focus:border-accent text-sm"
-              />
-              <button
-                type="submit"
-                className="bg-accent hover:bg-accent-hover text-white py-2 rounded font-semibold text-sm transition"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4 uppercase tracking-wider">
-              Quick Links
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/returns" className="hover:text-white transition">
-                  Returns Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/sizes" className="hover:text-white transition">
-                  Size Guides
-                </Link>
-              </li>
-              <li>
-                <Link to="/faqs" className="hover:text-white transition">
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link to="/shipping" className="hover:text-white transition">
-                  Shipping Info
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4 uppercase tracking-wider">
+        {/* Grid Container with centered items on desktop */}
+        <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 md:justify-items-center gap-10 mb-12">
+          {/* Contact Info Column */}
+          <div className="w-full max-w-xs">
+            <h3 className="text-white font-semibold text-sm mb-5 uppercase tracking-widest">
               Contact Us
             </h3>
-            <ul className="space-y-2 text-sm">
-              <li>📍 123 Performance Way, Austin, TX</li>
-              <li>📞 (512) 555-0199</li>
-              <li>✉️ support@fitnova.com</li>
+            <ul className="space-y-3.5 text-slate-400 text-sm">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
+                <span>58, Old Road, Colombo</span>
+              </li>
+              <li>
+                <a
+                  href="tel:5125550199"
+                  className="flex items-center gap-3 hover:text-white transition-colors duration-200"
+                >
+                  <Phone className="w-4 h-4 text-white shrink-0" />
+                  <span>078 194 3979</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:support@fitnova.com"
+                  className="flex items-center gap-3 hover:text-white transition-colors duration-200"
+                >
+                  <Mail className="w-4 h-4 text-white shrink-0" />
+                  <span>palawaththadilum@gmail.com</span>
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Store Hours */}
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4 uppercase tracking-wider">
+          {/* Store Hours Column */}
+          <div className="w-full max-w-xs">
+            <h3 className="text-white font-semibold text-sm mb-5 uppercase tracking-widest">
               Store Hours
             </h3>
-            <ul className="space-y-2 text-sm">
-              <li>Mon - Fri: 9:00 AM - 8:00 PM</li>
-              <li>Saturday: 10:00 AM - 6:00 PM</li>
-              <li>Sunday: 11:00 AM - 5:00 PM</li>
+            <ul className="space-y-3.5 text-slate-400 text-sm">
+              <li className="flex items-center gap-3">
+                <Clock className="w-4 h-4 text-white shrink-0" />
+                <div className="flex justify-between w-full gap-4">
+                  <span>Mon - Fri</span>
+                  <span className="text-white font-medium">
+                    9:00 AM - 8:00 PM
+                  </span>
+                </div>
+              </li>
+              <li className="flex items-center gap-3 pl-7">
+                <div className="flex justify-between w-full gap-4">
+                  <span>Saturday</span>
+                  <span className="text-white font-medium">
+                    10:00 AM - 6:00 PM
+                  </span>
+                </div>
+              </li>
+              <li className="flex items-center gap-3 pl-7">
+                <div className="flex justify-between w-full gap-4">
+                  <span>Sunday</span>
+                  <span className="text-white font-medium">
+                    11:00 AM - 5:00 PM
+                  </span>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
 
+        {/* Copyright Footer Line */}
         <div className="w-full max-w-7xl border-t border-gray-900 pt-6 text-center text-xs text-gray-600">
           &copy; {new Date().getFullYear()} FitNova Store. All rights reserved.
         </div>
