@@ -61,7 +61,7 @@ export default function ProductOverview() {
         axios
             .post(
                 import.meta.env.VITE_BACKEND_URL + "/api/reviews",
-                { productId: productID, rating, comment },
+                { productId: product?.productID || product?._id || product?.id, rating, comment },
                 {
                     withCredentials: true,
                     headers: {
