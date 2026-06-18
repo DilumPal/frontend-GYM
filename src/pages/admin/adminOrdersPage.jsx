@@ -13,6 +13,7 @@ import {
     Calendar,
     BadgeDollarSign,
     ShoppingCart,
+    ChevronDown,
 } from "lucide-react";
 
 Modal.setAppElement("#root");
@@ -22,6 +23,9 @@ export default function AdminOrdersPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [modalIsOpen, setIsModalOpen] = useState(false);
     const [activeOrder, setActiveOrder] = useState(null);
+    const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
+
+    const statusOptions = ["pending", "completed", "canceled", "returned"];
 
     useEffect(() => {
         fetchOrders();
@@ -32,7 +36,7 @@ export default function AdminOrdersPage() {
 
         if (!token) {
             toast.error("Please login first");
-            boxIsLoading(false);
+            setIsLoading(false); // Fixed typo from boxIsLoading
             return;
         }
 
@@ -53,6 +57,36 @@ export default function AdminOrdersPage() {
             .finally(() => {
                 setIsLoading(false);
             });
+    }
+
+    async function handleStatusChange(updateValue) {
+        try {
+            setIsLoading(true);
+            const token = localStorage.getItem("token");
+
+            await axios.put(
+                import.meta.env.VITE_BACKEND_URL + "/api/orders/" + activeOrder.orderId + "/" + updateValue,
+                {},
+                { headers: { Authorization: "Bearer " + token } }
+            );
+
+            const updatedOrder = { ...activeOrder, status: updateValue };
+            setActiveOrder(updatedOrder);
+
+            setOrders((prevOrders) =>
+                prevOrders.map((ord) =>
+                    ord.orderId === activeOrder.orderId ? { ...ord, status: updateValue } : ord
+                )
+            );
+
+            toast.success("Order status updated!");
+        } catch (e) {
+            toast.error("Error updating order status");
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+            setIsStatusDropdownOpen(false);
+        }
     }
 
     function getStatusStyle(status) {
@@ -107,7 +141,10 @@ export default function AdminOrdersPage() {
                         {/* ================= MODAL ================= */}
                         <Modal
                             isOpen={modalIsOpen}
-                            onRequestClose={() => setIsModalOpen(false)}
+                            onRequestClose={() => {
+                                setIsModalOpen(false);
+                                setIsStatusDropdownOpen(false);
+                            }}
                             contentLabel="Order Details"
                             className="bg-primary/95 border border-accent/25 text-secondary w-[95%] md:w-[850px] max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl p-6 outline-none relative backdrop-blur-md"
                             overlayClassName="fixed inset-0 bg-black/75 backdrop-blur-sm flex justify-center items-center z-[999]"
@@ -129,8 +166,11 @@ export default function AdminOrdersPage() {
                                         </div>
 
                                         <button
-                                            onClick={() => setIsModalOpen(false)}
-                                            className="p-2 rounded-full text-secondary/60 hover:text-accent hover:bg-secondary/[0.05] transition"
+                                            onClick={() => {
+                                                setIsModalOpen(false);
+                                                setIsStatusDropdownOpen(false);
+                                            }}
+                                            className="p-2 rounded-full text-secondary/60 hover:text-accent hover:bg-secondary/[0.05] transition cursor-pointer"
                                         >
                                             <X size={24} />
                                         </button>
@@ -184,51 +224,50 @@ export default function AdminOrdersPage() {
                                                     </span>
                                                 </div>
 
+                                                {/* Styled Custom Status Action Section */}
                                                 <div className="flex justify-between items-center gap-4">
                                                     <span className="text-secondary/60">Status</span>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="relative flex items-center gap-2">
                                                         <span className={`px-3 py-1 rounded-full text-xs border font-semibold ${getStatusStyle(activeOrder.status)}`}>
                                                             {activeOrder.status}
                                                         </span>
-                                                        <select
-                                                            className="bg-primary text-secondary border border-secondary/20 rounded-lg p-1 text-xs outline-none focus:border-accent"
-                                                            defaultValue="default"
-                                                            onChange={async (e) => {
-                                                                const updateValue = e.target.value;
-                                                                try {
-                                                                    setIsLoading(true);
-                                                                    const token = localStorage.getItem("token");
+                                                        
+                                                        {/* Styled Custom Select Button */}
+                                                        <div className="relative">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+                                                                className="flex items-center gap-2 px-3 py-1.5 bg-black text-secondary border border-secondary/20 rounded-xl text-xs font-bold outline-none focus:border-accent transition cursor-pointer hover:bg-secondary/[0.02]"
+                                                            >
+                                                                <span>Update</span>
+                                                                <ChevronDown size={14} className={`text-secondary/60 transition-transform duration-200 ${isStatusDropdownOpen ? "rotate-180" : ""}`} />
+                                                            </button>
 
-                                                                    await axios.put(
-                                                                        import.meta.env.VITE_BACKEND_URL + "/api/orders/" + activeOrder.orderId + "/" + updateValue,
-                                                                        {},
-                                                                        { headers: { Authorization: "Bearer " + token } }
-                                                                    );
-
-                                                                    const updatedOrder = { ...activeOrder, status: updateValue };
-                                                                    setActiveOrder(updatedOrder);
-
-                                                                    setOrders((prevOrders) =>
-                                                                        prevOrders.map((ord) =>
-                                                                            ord.orderId === activeOrder.orderId ? { ...ord, status: updateValue } : ord
-                                                                        )
-                                                                    );
-
-                                                                    toast.success("Order status updated!");
-                                                                } catch (e) {
-                                                                    toast.error("Error updating order status");
-                                                                    console.error(e);
-                                                                } finally {
-                                                                    setIsLoading(false);
-                                                                }
-                                                            }}
-                                                        >
-                                                            <option value="default" disabled>Change Status</option>
-                                                            <option value="pending">pending</option>
-                                                            <option value="completed">completed</option>
-                                                            <option value="canceled">canceled</option>
-                                                            <option value="returned">returned</option>
-                                                        </select>
+                                                            {isStatusDropdownOpen && (
+                                                                <>
+                                                                    {/* Overlay backdrop constraint within the fixed system layout boundary */}
+                                                                    <div className="fixed inset-0 z-30" onClick={() => setIsStatusDropdownOpen(false)} />
+                                                                    
+                                                                    <ul className="absolute right-0 mt-2 z-40 w-36 bg-neutral-950 border border-secondary/10 rounded-xl shadow-2xl p-1 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
+                                                                        {statusOptions.map((statusItem) => (
+                                                                            <li key={statusItem}>
+                                                                                <button
+                                                                                    type="button"
+                                                                                    onClick={() => handleStatusChange(statusItem)}
+                                                                                    className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors capitalize cursor-pointer
+                                                                                        ${activeOrder.status === statusItem
+                                                                                            ? "bg-accent/20 text-accent font-bold"
+                                                                                            : "text-secondary/70 hover:bg-neutral-800 hover:text-secondary"
+                                                                                        }`}
+                                                                                >
+                                                                                    {statusItem}
+                                                                                </button>
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -341,8 +380,11 @@ export default function AdminOrdersPage() {
                                     {/* Modal Actions Footer */}
                                     <div className="mt-8 flex justify-end">
                                         <button
-                                            onClick={() => setIsModalOpen(false)}
-                                            className="px-6 py-2 rounded-xl bg-accent hover:bg-accent/80 text-white font-semibold transition"
+                                            onClick={() => {
+                                                setIsModalOpen(false);
+                                                setIsStatusDropdownOpen(false);
+                                            }}
+                                            className="px-6 py-2 rounded-xl bg-accent hover:bg-accent/80 text-white font-semibold transition cursor-pointer"
                                         >
                                             Close
                                         </button>

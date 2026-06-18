@@ -16,6 +16,7 @@ export default function ProductOverview() {
     // Review States
     const [reviews, setReviews] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Controls custom dropdown state
     const [rating, setRating] = useState(5);
     const [comment, setComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,7 +68,7 @@ export default function ProductOverview() {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
-                } // Keeps cookie/token handling intact if needed
+                }
             )
             .then(() => {
                 toast.success("Review submitted successfully!");
@@ -214,19 +215,61 @@ export default function ProductOverview() {
                                     Share Your Review
                                 </h3>
                                 <form onSubmit={handleReviewSubmit} className="flex flex-col gap-4">
+                                    
+                                    {/* Styled Dropdown State Wrapper */}
                                     <div>
                                         <label className="text-xs text-gray-400 block mb-1 uppercase font-bold tracking-wider">Rating</label>
-                                        <select
-                                            value={rating}
-                                            onChange={(e) => setRating(Number(e.target.value))}
-                                            className="w-full p-3 bg-black border border-gray-700 rounded-xl text-white outline-none focus:border-accent"
-                                        >
-                                            {[5, 4, 3, 2, 1].map((num) => (
-                                                <option key={num} value={num}>{num} Star{num > 1 ? "s" : ""}</option>
-                                            ))}
-                                        </select>
+                                        <div className="relative">
+                                            {/* Custom Dropdown Trigger Button */}
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                className="w-full p-3 bg-black border border-gray-700 rounded-xl text-white outline-none focus:border-accent text-left flex justify-between items-center transition-all cursor-pointer"
+                                            >
+                                                <span className="font-semibold">{rating} Star{rating > 1 ? "s" : ""}</span>
+                                                <svg 
+                                                    className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} 
+                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </button>
+
+                                            {/* Custom Dropdown Menu Elements */}
+                                            {isDropdownOpen && (
+                                                <>
+                                                    {/* Clicking away closes the menu overlay safely */}
+                                                    <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)} />
+                                                    
+                                                    <ul className="absolute z-20 w-full mt-2 bg-neutral-950 border border-gray-800 rounded-xl shadow-xl max-h-60 overflow-y-auto overflow-hidden p-1 animate-in fade-in slide-in-from-top-2 duration-150">
+                                                        {[5, 4, 3, 2, 1].map((num) => (
+                                                            <li key={num}>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setRating(num);
+                                                                        setIsDropdownOpen(false);
+                                                                    }}
+                                                                    className={`w-full text-left px-4 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between cursor-pointer
+                                                                        ${rating === num 
+                                                                            ? "bg-accent/20 text-accent font-bold" 
+                                                                            : "text-gray-300 hover:bg-neutral-800 hover:text-white"
+                                                                        }`}
+                                                                >
+                                                                    <span>{num} Star{num > 1 ? "s" : ""}</span>
+                                                                    {rating === num && (
+                                                                        <span className="text-accent text-xs">●</span>
+                                                                    )}
+                                                                </button>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
 
+                                    {/* Description/Experience Field */}
                                     <div>
                                         <label className="text-xs text-gray-400 block mb-1 uppercase font-bold tracking-wider">Your Experience</label>
                                         <textarea
@@ -239,18 +282,19 @@ export default function ProductOverview() {
                                         />
                                     </div>
 
+                                    {/* Action Footers */}
                                     <div className="flex gap-3 justify-end mt-2">
                                         <button
                                             type="button"
                                             onClick={() => setIsModalOpen(false)}
-                                            className="px-5 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:bg-white/5 transition-all text-sm font-semibold"
+                                            className="px-5 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:bg-white/5 transition-all text-sm font-semibold cursor-pointer"
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="px-5 py-2.5 rounded-xl bg-accent text-white hover:bg-accent/80 transition-all text-sm font-bold shadow-md disabled:opacity-50"
+                                            className="px-5 py-2.5 rounded-xl bg-accent text-white hover:bg-accent/80 transition-all text-sm font-bold shadow-md disabled:opacity-50 cursor-pointer"
                                         >
                                             {isSubmitting ? "Posting..." : "Submit"}
                                         </button>
