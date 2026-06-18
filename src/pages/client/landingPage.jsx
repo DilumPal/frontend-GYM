@@ -156,7 +156,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {featuredProducts.map((product) => (
                 <div
-                  key={product._id}
+                  key={product.productID}
                   className="bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 relative group flex flex-col border border-gray-100"
                 >
                   {/* Image Container with Subtle Zoom */}
@@ -170,7 +170,7 @@ export default function LandingPage() {
                     {/* Premium Hover Overlay & Quick View */}
                     <div className="absolute inset-0 bg-[#1A1A1A]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
                       <Link
-                        to={`/overview/${product._id}`}
+                        to={`/overview/${product.productID || product._id || product.id}`}
                         className="bg-white text-[#1A1A1A] text-sm font-bold tracking-wide py-2.5 px-5 rounded-md shadow-lg hover:bg-[#E53935] hover:text-white transition-all duration-200 transform scale-95 group-hover:scale-100"
                       >
                         Quick View
@@ -250,7 +250,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.map((test) => (
                 <div
-                  key={test._id}
+                  key={test.id}
                   className="bg-neutral-900/80 backdrop-blur-sm p-6 rounded-xl text-left border-2 border-accent/20 hover:border-accent/40 transition duration-300 flex flex-col justify-between shadow-xl"
                 >
                   <div>
