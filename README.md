@@ -24,7 +24,7 @@ FitNova is a modern, high-performance e-commerce platform dedicated to selling p
 
 - **Framework:** React.js (Vite template)
 - **Styling:** Tailwind CSS / Modern CSS (with smooth interactive effects)
-- **State Management:** React Context API / Redux Toolkit (as per implementation)
+- **State Management:** React Context API
 - **Authentication:** Google OAuth & JWT
 - **Cloud Storage Integration:** Supabase Client (for direct, secure image handling)
 - **HTTP Client:** Axios
