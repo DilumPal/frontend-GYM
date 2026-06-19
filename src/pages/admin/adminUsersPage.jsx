@@ -83,7 +83,6 @@ export default function AdminUsersPage() {
                   <th className="p-4">User Details</th>
                   <th className="p-4">Email Address</th>
                   <th className="p-4">Role</th>
-                  <th className="p-4">Joined Date</th>
                   <th className="p-4 text-center">Actions</th>
                 </tr>
               </thead>
@@ -133,18 +132,6 @@ export default function AdminUsersPage() {
                         <FiShield size={12} />
                         {user?.role || "customer"}
                       </span>
-                    </td>
-
-                    {/* Date Registered */}
-                    <td className="p-4 text-white/60">
-                      <div className="flex items-center gap-2">
-                        <FiCalendar className="text-white/30" />
-                        <span>
-                          {user?.createdAt
-                            ? new Date(user.createdAt).toLocaleDateString()
-                            : "N/A"}
-                        </span>
-                      </div>
                     </td>
 
                     {/* Actions Panel */}
