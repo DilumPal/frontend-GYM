@@ -31,15 +31,17 @@ FitNova is a modern, high-performance e-commerce platform dedicated to selling p
 
 ---
 
-## 🚀 Getting Started
+## 📐 Project Structure & Architecture
 
-### Prerequisites
+The codebase follows a modular design pattern to enforce **Separation of Concerns (SoC)**. This keeps the application scalable, maintainable, and easy to collaborate on.
 
-Make sure you have **Node.js** (v18+ recommended) installed on your system.
-
-### Installation & Local Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/DilumPal/frontend-GYM.git](https://github.com/DilumPal/frontend-GYM.git)
-   cd frontend-GYM
+```text
+src/
+├── assets/          # Static media (logos, default placeholders, icons)
+├── components/      # Reusable, atomic UI components (Buttons, Navbar, Glass containers)
+├── context/         # Global state management & Authentication providers
+├── pages/           # Dedicated view layouts (Home, Shop, Admin Dashboard, LiveBet)
+├── services/        # Centralized API handling (Axios interceptors & configurations)
+├── utils/           # Shared utility logic (Formatters, validators, helper functions)
+├── App.jsx          # Core routing, route guards, and layout wrappers
+└── main.jsx         # Application initialization and DOM mounting point
